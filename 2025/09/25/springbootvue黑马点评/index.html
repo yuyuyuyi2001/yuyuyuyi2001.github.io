@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
+    <meta charset="UTF-8" />
+
+    <meta name="generator" content="Hugo 0.153.2"><meta name="theme-color" content="#fff" />
+    <meta name="color-scheme" content="light dark">
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <meta name="format-detection" content="telephone=no, date=no, address=no, email=no" />
+    
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <title>
+SpringBoot&#43;Vue&#43;Redis: 黑马点评学习 | yuyuyuyi1&#39;s Blog</title>
+
+    <link rel="stylesheet" href="/css/meme.min.53999f9361014c4c454ae0ae7aa172b7483143200b926b0cd5d09eb2e56480fe.css"/>
+
+    
+    
+        
+            <script src="/js/meme.min.60c9607187770974b0557afb656b9af66524f1e2b096396869a2dc23e13bde45.js"></script>
+
+        
+    
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto&#43;Serif&#43;SC:wght@400;500;700&amp;family=Source&#43;Code&#43;Pro:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" media="print" onload="this.media='all'" />
+        <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto&#43;Serif&#43;SC:wght@400;500;700&amp;family=Source&#43;Code&#43;Pro:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" /></noscript>
+
+    <meta name="author" content="wangkunlin" /><meta name="description" content="项目来自黑马程序员的黑马点评，个人认为是很好的SpringBoot&#43;Redis教程项目。不过疑似有点烂大街了。
+视频教程：黑马点评项目实战，掌握企业实战项目真实应用场景，一套精通redis缓存技术_哔哩哔哩_bilibili
+我的实现：gitee.com/wkling/Dianping
+CSDN上优质的文字教程：黑马点评项目学习笔记（15w字详解，堪称史上最详细，欢迎收藏）-CSDN博客
+" />
+
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
+    <link rel="icon" type="image/png" href="/icons/favicon-96x96.png" sizes="96x96" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" sizes="180x180" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="yuyuyuyi1&#39;s Blog" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="yuyuyuyi1&#39;s Blog" />
+    <link rel="manifest" href="/manifest.json" />
+
+    
+    
+
+    
+        <link rel="canonical" href="https://yuyuyuyi1.github.io/2025/09/25/springbootvue%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84/" />
+    
+
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "datePublished": "2025-09-25T07:24:36+00:00",
+        "dateModified": "2025-12-23T13:27:20+00:00",
+        "url": "https://yuyuyuyi1.github.io/2025/09/25/springbootvue%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84/",
+        "headline": "\nSpringBoot+Vue+Redis: 黑马点评学习",
+        "description": "项目来自黑马程序员的黑马点评，个人认为是很好的SpringBoot+Redis教程项目。不过疑似有点烂大街了。\n视频教程：黑马点评项目实战，掌握企业实战项目真实应用场景，一套精通redis缓存技术_哔哩哔哩_bilibili\n我的实现：gitee.com/wkling/Dianping\nCSDN上优质的文字教程：黑马点评项目学习笔记（15w字详解，堪称史上最详细，欢迎收藏）-CSDN博客\n",
+        "inLanguage" : "zh-CN",
+        "articleSection": "post",
+        "wordCount":  10613 ,
+        "image": ["data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"],
+        "author": {
+            "@type": "Person",
+            "description": "Viva La Vida",
+            "email": "wangkunlin2001@163.com",
+            "image": "https://yuyuyuyi1.github.io/icons/apple-touch-icon.png",
+            "url": "https://io-oi.me/",
+            "name": "wangkunlin"
+        },
+        "license": "[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)",
+        "publisher": {
+            "@type": "Organization",
+            "name": "yuyuyuyi1's Blog",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://yuyuyuyi1.github.io/icons/apple-touch-icon.png"
+            },
+            "url": "https://yuyuyuyi1.github.io/"
+        },
+        "mainEntityOfPage": {
+            "@type": "WebSite",
+            "@id": "https://yuyuyuyi1.github.io/"
+        }
+    }
+</script>
+
+    
+
+<meta name="twitter:card" content="summary_large_image" />
+
+
+<meta name="twitter:site" content="@yixiuer" />
+<meta name="twitter:creator" content="@yixiuer" />
+
+    
+
+
+
+<meta property="og:title" content="
+SpringBoot&#43;Vue&#43;Redis: 黑马点评学习" />
+<meta property="og:description" content="项目来自黑马程序员的黑马点评，个人认为是很好的SpringBoot&#43;Redis教程项目。不过疑似有点烂大街了。
+视频教程：黑马点评项目实战，掌握企业实战项目真实应用场景，一套精通redis缓存技术_哔哩哔哩_bilibili
+我的实现：gitee.com/wkling/Dianping
+CSDN上优质的文字教程：黑马点评项目学习笔记（15w字详解，堪称史上最详细，欢迎收藏）-CSDN博客
+" />
+<meta property="og:url" content="https://yuyuyuyi1.github.io/2025/09/25/springbootvue%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84/" />
+<meta property="og:site_name" content="yuyuyuyi1&#39;s Blog" />
+<meta property="og:locale" content="zh-cn" /><meta property="og:image" content="data:image/svg&#43;xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc&#43;" />
+<meta property="og:type" content="article" />
+    <meta property="article:published_time" content="2025-09-25T07:24:36&#43;00:00" />
+    <meta property="article:modified_time" content="2025-12-23T13:27:20&#43;00:00" />
+    
+    <meta property="article:section" content="post" />
+<meta name="fediverse:creator" content="@yixiuer@mastodon.social" />
+
+
+    
+    
+
+    
+</head>
+
+    <body>
+        <div class="container">
+            
+    <header class="header">
+        
+            <div class="header-wrapper">
+                <div class="header-inner single">
+                    
+    <div class="site-brand">
+        
+            <a href="/" class="brand">yuyuyuyi1&#39;s Blog</a>
+        
+    </div>
+
+                    <nav class="nav">
+    <ul class="menu" id="menu">
+        
+
+        
+            
+                <li class="menu-item"><a href=""><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon archive"><path d="M32 448c0 17.7 14.3 32 32 32h384c17.7 0 32-14.3 32-32V160H32v288zm160-212c0-6.6 5.4-12 12-12h104c6.6 0 12 5.4 12 12v8c0 6.6-5.4 12-12 12H204c-6.6 0-12-5.4-12-12v-8zM480 32H32C14.3 32 0 46.3 0 64v48c0 8.8 7.2 16 16 16h480c8.8 0 16-7.2 16-16V64c0-17.7-14.3-32-32-32z"/></svg><span class="menu-item-name">文章</span></a>
+                </li>
+            
+        
+            
+                <li class="menu-item"><a href="/categories/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon th"><path d="M149.333 56v80c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V56c0-13.255 10.745-24 24-24h101.333c13.255 0 24 10.745 24 24zm181.334 240v-80c0-13.255-10.745-24-24-24H205.333c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24h101.333c13.256 0 24.001-10.745 24.001-24zm32-240v80c0 13.255 10.745 24 24 24H488c13.255 0 24-10.745 24-24V56c0-13.255-10.745-24-24-24H386.667c-13.255 0-24 10.745-24 24zm-32 80V56c0-13.255-10.745-24-24-24H205.333c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24h101.333c13.256 0 24.001-10.745 24.001-24zm-205.334 56H24c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24h101.333c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24zM0 376v80c0 13.255 10.745 24 24 24h101.333c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24H24c-13.255 0-24 10.745-24 24zm386.667-56H488c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24H386.667c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24zm0 160H488c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24H386.667c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24zM181.333 376v80c0 13.255 10.745 24 24 24h101.333c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24H205.333c-13.255 0-24 10.745-24 24z"/></svg><span class="menu-item-name">分类</span></a>
+                </li>
+            
+        
+            
+                <li class="menu-item"><a href="/tags/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="icon tags"><path d="M497.941 225.941L286.059 14.059A48 48 0 0 0 252.118 0H48C21.49 0 0 21.49 0 48v204.118a48 48 0 0 0 14.059 33.941l211.882 211.882c18.744 18.745 49.136 18.746 67.882 0l204.118-204.118c18.745-18.745 18.745-49.137 0-67.882zM112 160c-26.51 0-48-21.49-48-48s21.49-48 48-48 48 21.49 48 48-21.49 48-48 48zm513.941 133.823L421.823 497.941c-18.745 18.745-49.137 18.745-67.882 0l-.36-.36L527.64 323.522c16.999-16.999 26.36-39.6 26.36-63.64s-9.362-46.641-26.36-63.64L331.397 0h48.721a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882z"/></svg><span class="menu-item-name">标签</span></a>
+                </li>
+            
+        
+            
+                <li class="menu-item"><a href=""><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" class="icon user-circle"><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6 0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 39.4-88 88-88zm0 344c-58.7 0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4 0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9 14.3 0 28-2.7 40.9-6.9 2.3-.7 4.7-1.1 7.1-1.1 42.9 0 79.7 24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z"/></svg><span class="menu-item-name">关于</span></a>
+                </li>
+            
+        
+            
+                
+                    
+                    
+                        <li class="menu-item">
+                            <button id="theme-switcher" type="button" aria-label="切换主题"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon theme-icon-light"><path d="M193.2 104.5l48.8-97.5a18 18 0 0128 0l48.8 97.5 103.4 -34.5a18 18 0 0119.8 19.8l-34.5 103.4l97.5 48.8a18 18 0 010 28l-97.5 48.8 34.5 103.4a18 18 0 01-19.8 19.8l-103.4-34.5-48.8 97.5a18 18 0 01-28 0l-48.8-97.5l-103.4 34.5a18 18 0 01-19.8-19.8l34.5-103.4-97.5-48.8a18 18 0 010-28l97.5-48.8-34.5-103.4a18 18 0 0119.8-19.8zM256 128a128 128 0 10.01 0M256 160a96 96 0 10.01 0"/></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon theme-icon-dark"><path d="M27 412a256 256 0 10154-407a11.5 11.5 0 00-5 20a201.5 201.5 0 01-134 374a11.5 11.5 0 00-15 13"/></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="icon theme-icon-system"><path d="M528 0H48C21.5 0 0 21.5 0 48v320c0 26.5 21.5 48 48 48h192l-16 48h-72c-13.3 0-24 10.7-24 24s10.7 24 24 24h272c13.3 0 24-10.7 24-24s-10.7-24-24-24h-72l-16-48h192c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48zm-16 352H64V64h448v288z"/></svg></button>
+                        </li>
+                    
+                
+            
+        
+            
+                
+            
+        
+    </ul>
+</nav>
+
+                    
+                </div>
+            </div>
+            
+    <input type="checkbox" id="nav-toggle" aria-hidden="true" />
+    <label for="nav-toggle" class="nav-toggle"></label>
+    <label for="nav-toggle" class="nav-curtain"></label>
+
+
+        
+    </header>
+
+
+
+
+            
+            
+    <main class="main single" id="main">
+    <div class="main-inner">
+
+        
+
+        <article class="content post h-entry" data-align="justify" data-type="post" data-toc-num="true">
+
+            <h1 class="post-title p-name">
+SpringBoot+Vue+Redis: 黑马点评学习</h1>
+
+            
+
+            
+                
+            
+
+            
+                
+
+<div class="post-meta">
+    
+        
+        <time datetime="2025-09-25T07:24:36&#43;00:00" class="post-meta-item published dt-published"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon post-meta-icon"><path d="M148 288h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm108-12v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 96v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm192 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96-260v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48zm-48 346V160H48v298c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z"/></svg>&nbsp;2025.9.25</time>
+    
+    
+        
+        <time datetime="2025-12-23T13:27:20&#43;00:00" class="post-meta-item modified dt-updated"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon post-meta-icon"><path d="M400 64h-48V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H160V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm-6 400H54a6 6 0 0 1-6-6V160h352v298a6 6 0 0 1-6 6zm-52.849-200.65L198.842 404.519c-4.705 4.667-12.303 4.637-16.971-.068l-75.091-75.699c-4.667-4.705-4.637-12.303.068-16.971l22.719-22.536c4.705-4.667 12.303-4.637 16.97.069l44.104 44.461 111.072-110.181c4.705-4.667 12.303-4.637 16.971.068l22.536 22.718c4.667 4.705 4.636 12.303-.069 16.97z"/></svg>&nbsp;2025.12.23</time>
+    
+    
+    
+        
+        
+        
+            
+                <span class="post-meta-item category"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon post-meta-icon"><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>&nbsp;<a href="/categories/%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/" class="category-link p-category">项目学习</a></span>
+            
+        
+    
+    
+        
+        <span class="post-meta-item wordcount"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon post-meta-icon"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>&nbsp;10613</span>
+    
+    
+        
+        <span class="post-meta-item reading-time"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon post-meta-icon"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm61.8-104.4l-84.9-61.7c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v141.7l66.8 48.6c5.4 3.9 6.5 11.4 2.6 16.8L334.6 349c-3.9 5.3-11.4 6.5-16.8 2.6z"/></svg>&nbsp;22&nbsp;分钟</span>
+    
+    
+    
+</div>
+
+            
+
+            <div class="post-body e-content">
+                
+<p>项目来自黑马程序员的黑马点评，个人认为是很好的SpringBoot+Redis教程项目。不过疑似有点烂大街了。<br>
+视频教程：<a href="https://www.bilibili.com/video/BV1NV411u7GE/?spm_id_from=333.337.search-card.all.click" target="_blank" rel="noopener">黑马点评项目实战，掌握企业实战项目真实应用场景，一套精通redis缓存技术_哔哩哔哩_bilibili</a><br>
+我的实现：<a href="https://gitee.com/wkling/Dianping" target="_blank" rel="noopener">gitee.com/wkling/Dianping</a><br>
+CSDN上优质的文字教程：<a href="https://blog.csdn.net/qq_66345100/article/details/131986713" target="_blank" rel="noopener">黑马点评项目学习笔记（15w字详解，堪称史上最详细，欢迎收藏）-CSDN博客</a></p>
+<h2 class="wp-block-heading" id="项目技术栈">项目技术栈</h2>
+<ul class="wp-block-list">
+  <li>
+    spring boot
+  </li>
+  <li>
+    Redis
+  </li>
+  <li>
+    MySQL
+  </li>
+  <li>
+    vue
+  </li>
+  <li>
+    ngnix
+  </li>
+  <li>
+    mybatis-plus
+  </li>
+</ul>
+<h2 class="wp-block-heading" id="技术点">技术点</h2>
+<ul class="wp-block-list">
+  <li>
+    Redis缓存
+  </li>
+  <li>
+    缓存刷新机制（基于interceptor实现）
+  </li>
+  <li>
+    缓存一致性（缓存更新策略，超时剔除与主动更新）
+  </li>
+  <li>
+    Redis全局唯一自增
+  </li>
+  <li>
+    缓存击穿与缓存穿透解决方法（逻辑过期或互斥锁、缓存空字符串）
+  </li>
+  <li>
+    超卖问题-添加乐观锁
+  </li>
+  <li>
+    一人一单—spring事务注解、代理对象、方法加锁
+  </li>
+  <li>
+    Redis基于<code>setnx</code>实现分布式锁，锁误删问题、锁原子性操作问题
+  </li>
+  <li>
+    Redssion分布式锁框架
+  </li>
+  <li>
+    Redis消息队列
+  </li>
+  <li>
+    Lua脚本实现事务原子化
+  </li>
+  <li>
+    Redis SortedSet实现点赞用户排名
+  </li>
+  <li>
+    Feed流的滚动查询方式，基于SortedSet
+  </li>
+</ul>
+<h2 class="wp-block-heading" id="踩过的坑">踩过的坑</h2>
+<p>2025年08月15日 12:11:42：<br>
+问题：前端跑在8080端口，后端跑在8081端口，前端请求的URL也是8080端口的。 ​<br>
+原因：nginx配置了前端代理，把所有8080/api的请求转发到8081，通过这种方式解决了跨域问题。</p>
+<p>2025年08月15日 21:34:08：<br>
+问题：执行 <code>LambdaQueryWrapper.eq(User::getPhone, phone)</code>时报错<code>Caused by: java.lang.reflect.InaccessibleObjectException</code><br>
+原因：Java 17的模块系统限制了反射访问 <code>java.lang.invoke</code>包，而 MyBatis-Plus 的 Lambda 表达式解析依赖此<strong>反射</strong>机制。降级java8解决。</p>
+<p>2025年08月16日 12:13:56：<br>
+判空逻辑优化：<code>shopJson.isEmpty()</code>不能这样用，因为如果shopJson是空就会有异常，用<code>StrUtil.isBlank(shopJson)</code></p>
+<p>2025年08月16日 12:17:54：<br>
+手动new拦截器会导致自动注入失效：<br>
+interceptorRegistry.addInterceptor(new LoginInterceptor());<br>
+interceptorRegistry.addInterceptor(new RefreshTokenInterceptor());<br>
+后果：拦截器内部的<code>@Autowired</code>注解（如 <code>StringRedisTemplate</code>）<strong>不会生效</strong>，导致 <code>NullPointerException</code><figure class="wp-block-table"></p>
+<div class="table-container"><table class="has-fixed-layout">
+  <tr>
+    <th class="has-text-align-center" data-align="center">
+      <strong>操作</strong>
+    </th>
+<pre><code>&lt;th class=&quot;has-text-align-center&quot; data-align=&quot;center&quot;&gt;
+  &lt;strong&gt;结果&lt;/strong&gt;
+&lt;/th&gt;
+</code></pre>
+  </tr>
+  <tr>
+    <td class="has-text-align-center" data-align="center">
+      <code>new LoginInterceptor()</code>
+    </td>
+<pre><code>&lt;td class=&quot;has-text-align-center&quot; data-align=&quot;center&quot;&gt;
+  绕过Spring容器，导致： 1. &lt;code&gt;@Autowired&lt;/code&gt;失效 2. AOP代理失效 3. 生命周期不受控
+&lt;/td&gt;
+</code></pre>
+  </tr>
+  <tr>
+    <td class="has-text-align-center" data-align="center">
+      <code>@Autowired</code>注入
+    </td>
+<pre><code>&lt;td class=&quot;has-text-align-center&quot; data-align=&quot;center&quot;&gt;
+  Spring自动处理依赖，保证： 1. 依赖注入有效 2. 单例管理 3. 代理增强
+&lt;/td&gt;
+</code></pre>
+  </tr>
+</table></div></figure> 
+<h1 class="wp-block-heading" id="功能实现">功能实现</h1>
+<div class="wp-block-image">
+  <figure class="aligncenter size-full">
+  <div class='fancybox-wrapper lazyload-container-unload' data-fancybox='post-images' href='https://www.yuyuyuyi1.xyz/wp-content/uploads/2025/09/image-20250814184600315.png'>
+    <img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  loading="lazy" decoding="async" width="479" height="445" data-original="https://www.yuyuyuyi1.xyz/wp-content/uploads/2025/09/image-20250814184600315.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" alt="" class="wp-image-448"  sizes="auto, (max-width: 479px) 100vw, 479px" />
+  </div></figure>
+</div>
+<h2 class="wp-block-heading" id="短信登录">短信登录</h2>
+<ul class="wp-block-list">
+  <li>
+    基于Session实现登录
+  </li>
+  <li>
+    集群的session共享问题
+  </li>
+  <li>
+    基于Redis实现共享session登录
+  </li>
+</ul>
+<p>流程如下：</p>
+<ol class="wp-block-list">
+  <li>
+    提交手机号—前端校验—点击发送验证码
+  </li>
+  <li>
+    后端生成验证码，保存验证码到Session/Redis中
+  </li>
+  <li>
+    前端点击登录，发送请求，在实现的demo中 直接打印在后端控制台上模拟短信验证码功能
+  </li>
+  <li>
+    后端校验前端的验证码，前端通过cookie/url字段捎带上验证码，后端在session/Redis中基于token检验用户的验证码
+  </li>
+  <li>
+    验证码通过后，如果不存在用户就创建，存在就将用户信息存到Session/Redis里（Redis中，结构为{phone: code}）
+  </li>
+  <li>
+    全程有一个拦截器<code>LoginInterceptor</code>，拦截器默认排除/user/login请求，当访问其他url请求的时候，拦截器启动，并判断用户的登录状态（同样基于Session或Redis）
+  </li>
+</ol>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">public Result sendCode(String phone, HttpSession session) {
+        if (RegexUtils.isPhoneInvalid(phone)) {
+            return Result.fail("手机号格式不正确");
+        }
+        // 手机号合法，生成验证码，并保存到Redis中
+        String code = RandomUtil.randomNumbers(6);
+        stringRedisTemplate.opsForValue().set(LOGIN_CODE_KEY + phone, code, RedisConstants.LOGIN_CODE_TTL, TimeUnit.MINUTES);
+
+        // 发送验证码 此处用后端控制台模拟验证码的短信发送
+        log.info("验证码:{}", code);
+        return Result.ok();
+    }</pre>
+<h3 class="wp-block-heading" id="用redis解决session集群共享问题">用Redis解决Session集群共享问题</h3>
+<p><strong>集群的session共享问题</strong><br>
+多台Tomcat并不共享session存储空间，当请求切换到不同tomcat服务时导致数据丢失的问题。 所以需要用<strong>一台新的服务器跑Redis，存缓存，用Redis缓存来解决Session共享问题</strong>。</p>
+<p>需要注意的点：</p>
+<ul class="wp-block-list">
+  <li>
+    代码实现中，stringRedisTemplate需要保证K-V都是string类型（数据结构用的Redis Hash）
+  </li>
+  <li>
+    radis需要设置有效期，<strong>有效期刷新可以在拦截器中实现</strong>
+  </li>
+  <li>
+    Redis的数据结构采用HashMap，因为短信验证涉及多个字段（phone、验证码、用户id等）如果用String，String的value需要Json化，更麻烦
+  </li>
+</ul>
+<p>验证流程：</p>
+<ul class="wp-block-list">
+  <li>
+    收到前端发的验证码，结构为{phone: code}
+  </li>
+  <li>
+    先验证code与服务端Redis存着的一致与否
+  </li>
+  <li>
+    再验证phone是否存在数据库中，不存在就在数据库中注册一个账号
+  </li>
+  <li>
+    之后，封装一个token返回给前端，token包括用户的id等数据
+  </li>
+  <li>
+    这个token同时也是服务端缓存用户数据的Redis数据的Key
+  </li>
+</ul>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">public Result login(LoginFormDTO loginForm, HttpSession session) {
+        String phone = loginForm.getPhone();
+        String code = loginForm.getCode();
+        // 1、判断手机号是否合法
+        if (RegexUtils.isPhoneInvalid(phone)) {
+            return Result.fail("手机号格式不正确");
+        }
+        // 2、判断验证码是否正确
+        // 从redis中拿到缓存的验证码
+        String redisCode = stringRedisTemplate.opsForValue().get(LOGIN_CODE_KEY + phone);
+        if (code == null || !code.equals(redisCode)) {
+            return Result.fail("验证码不正确");
+        }
+        // 3、判断手机号是否是已存在的用户
+        LambdaQueryWrapper&lt;User> lambdaQueryWrapper = new LambdaQueryWrapper&lt;>();
+        lambdaQueryWrapper.eq(User::getPhone, phone);
+        User user = this.getOne(lambdaQueryWrapper);
+
+        if (Objects.isNull(user)) {
+            // 用户不存在，需要注册
+            user = createUserWithPhone(phone);
+        }
+        // 4、保存用户信息到Redis中，便于后面逻辑的判断（比如登录判断、随时取用户信息，减少对数据库的查询）
+        UserDTO userDTO = BeanUtil.copyProperties(user, UserDTO.class);
+        // stringRedisTemplate要求key与value都为string类型 如果用原生的k-v结构: token-userMap, 会导致userDTO中的long类型字段id
+        // 由于不是string类型而报错, 需要修改userMap的映射对 使类型全为string
+        // 下面这段代码实现的就是把userDTO的三个字段类型都改成string封装成string
+        Map&lt;String, Object> userMap = BeanUtil.beanToMap(userDTO, new HashMap&lt;>(),
+                CopyOptions.create().setIgnoreNullValue(true).
+                        setFieldValueEditor((fieldName, fieldValue) -> fieldValue.toString()));
+
+        String token = UUID.randomUUID().toString(true);
+        String tokenKey = LOGIN_USER_KEY + token;
+        stringRedisTemplate.opsForHash().putAll(tokenKey, userMap);
+        log.info("用户tokenKey:" + tokenKey);
+
+        // 设置redis有效期
+        stringRedisTemplate.expire(tokenKey, LOGIN_USER_TTL, TimeUnit.MINUTES);
+
+        return Result.ok(token);
+    }</pre>
+<h3 class="wp-block-heading" id="双层登录拦截器">双层登录拦截器</h3>
+<p>登录拦截器（Login Interceptor）的核心作用是 ​<strong>​在用户访问需要身份验证的接口时，自动检查登录状态</strong>。避免出现直接通过URL就能访问一些需要身份鉴权的页面。</p>
+<p><strong>为什么需要双层拦截器</strong></p>
+<p>单拦截器的问题在于，单login拦截器会不拦截一些页面（如首页，登录页等），如果用户一直在这些页面停留，不会触发redis缓存刷新，那用户用着用着就发现Redis过期了。用第二个拦截器专门实现Redis刷新。<figure class="wp-block-image size-large"></p>
+<div class='fancybox-wrapper lazyload-container-unload' data-fancybox='post-images' href='https://www.yuyuyuyi1.xyz/wp-content/uploads/2025/09/image-20250816003620649-1024x481.png'>
+  <img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  loading="lazy" decoding="async" width="1024" height="481" data-original="https://www.yuyuyuyi1.xyz/wp-content/uploads/2025/09/image-20250816003620649-1024x481.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" alt="" class="wp-image-465"  sizes="auto, (max-width: 1024px) 100vw, 1024px" />
+</div></figure> 
+<p><strong>springboot中如何实现拦截器</strong></p>
+<ul class="wp-block-list">
+  <li>
+    写拦截器类，类需要实现<code>HandlerInterceptor</code>接口，在类上要带上@Component注解，把他注册为Bean； 拦截器有3个生命周期： <ul class="wp-block-list">
+      <li>
+        <strong><code>preHandle</code>，在 控制器方法执行前被调用（路由匹配成功后）</strong>
+      </li>
+      <li>
+        <strong><code>postHandle</code>，在 控制器方法执行后调用</strong>
+      </li>
+      <li>
+        <strong><code>afterCompletion</code></strong>，在 <strong>整个请求处理完成后</strong>（包括视图渲染或异常处理）调用，<strong>必定执行</strong>
+      </li>
+    </ul>
+  </li>
+  <li>
+    在mvcConfig（实现Spring的<code>WebMvcConfigurer</code>）中，重写<code>addInterceptors</code>接口，添加先前实现的拦截器类。<br />具体实现：
+  </li>
+</ul>
+<ol class="wp-block-list">
+  <li>
+    第一层是刷新拦截器，获取token，用<code>String token = request.getHeader("authorization");</code>常见的身份验证Token会通过 <code>Authorization</code>头部传递。
+  </li>
+  <li>
+    Redis里面找一下这个token有value吗，找不到说明没有，直接response(401)。
+  </li>
+  <li>
+    找的到说明存在，把信息存在<strong><code>ThreadLocal</code></strong>中，并且刷新token的有效期。
+  </li>
+  <li>
+    第二层拦截器较为简单，只需要拦截URL+二次鉴权就行了。
+  </li>
+</ol>
+<p><strong>拦截器执行顺序</strong><figure class="wp-block-table"></p>
+<div class="table-container"><table class="has-fixed-layout">
+  <tr>
+    <td>
+      <strong>preHandle​</strong>​
+    </td>
+<pre><code>&lt;td&gt;
+  按注册顺序执行（先Refresh后Login）
+&lt;/td&gt;
+
+&lt;td&gt;
+  &lt;code&gt;preHandle()&lt;/code&gt;
+&lt;/td&gt;
+</code></pre>
+  </tr>
+  <tr>
+    <td>
+      ​<strong>​postHandle​</strong>​
+    </td>
+<pre><code>&lt;td&gt;
+  按注册逆序执行（先Login后Refresh）
+&lt;/td&gt;
+
+&lt;td&gt;
+  &lt;code&gt;postHandle()&lt;/code&gt;
+&lt;/td&gt;
+</code></pre>
+  </tr>
+  <tr>
+    <td>
+      ​<strong>​afterCompletion​</strong>​
+    </td>
+<pre><code>&lt;td&gt;
+  按注册逆序执行（先Login后Refresh）
+&lt;/td&gt;
+
+&lt;td&gt;
+  &lt;code&gt;afterCompletion()&lt;/code&gt;
+&lt;/td&gt;
+</code></pre>
+  </tr>
+</table></div></figure> <figure class="wp-block-image size-large">
+<div class='fancybox-wrapper lazyload-container-unload' data-fancybox='post-images' href='https://www.yuyuyuyi1.xyz/wp-content/uploads/2025/09/image-1-1024x720.png'>
+  <img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  loading="lazy" decoding="async" width="1024" height="720" data-original="https://www.yuyuyuyi1.xyz/wp-content/uploads/2025/09/image-1-1024x720.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" alt="" class="wp-image-466"  sizes="auto, (max-width: 1024px) 100vw, 1024px" />
+</div></figure> 
+<h3 class="wp-block-heading" id="threadlocal应用与实现">ThreadLocal应用与实现</h3>
+<p><strong>ThreadLocal</strong> 提供了线程局部的变量，<strong>每个线程都有自己独立的变量副本</strong>，互不干扰。它实现了<strong>线程隔离</strong>，避免了多线程环境下的共享变量竞争问题。项目中，封装成UserHolder来使用。</p>
+<p>ThreadLocal底层其实是一个Map，Key是ThreadLocal对象本身，Value就是set的值。Key是弱引用的，当没会被GC自动回收，Value是强引用的，无法被GC自动回收，所以需要自己手动remove不用的ThreadLocal值。</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">public class UserHolder {
+    private static final ThreadLocal&lt;UserDTO> tl = new ThreadLocal&lt;>();
+
+    public static void saveUser(UserDTO user){
+        tl.set(user);
+    }
+
+    public static UserDTO getUser(){
+        return tl.get();
+    }
+
+    // 移除线程绑定的对象而非线程本身
+    public static void removeUser(){
+        tl.remove();
+    }
+}
+</pre>
+<h2 class="wp-block-heading" id="数据查询缓存">数据查询缓存</h2>
+<p><strong>缓存更新策略（为了解决数据一致性问题）</strong><br>
+在修改数据库的同时，更新缓存。<br>
+缓存更新的实现一般是删掉缓存，然后再添加一个新的，比用更新命令更新缓存更高效<br>
+缓存与数据库的操作更新顺序，优先执行数据库更新（原则是优先执行速度慢的）。</p>
+<p><strong>为什么要先更新数据库再删除缓存</strong>？</p>
+<ul class="wp-block-list">
+  <li>
+    先删除缓存，再更新数据库，如果这个时候有请求，会出现缓存穿透，全部去访问数据库了。
+  </li>
+  <li>
+    先更新数据库可能存在脏读，例如线程1更新数据库，更新缓存的这一刻，有线程2也更新了数据库，这样线程读的数据就是脏的，这种情况的概率特别低，因为需要满足线程1正在更新缓存且线程2更新数据库，更新缓存的操作是特别快的。
+  </li>
+</ul>
+<p><strong>常用缓存读写策略</strong></p>
+<ul class="wp-block-list">
+  <li>
+    <strong>旁路缓存读写，</strong>写（更新）的时候先更新数据库，再删缓存；读的时候先读缓存，读不到再读数据库，读到了再把内容写到缓存里。最常用的策略，较适用于读多写少的场景。
+  </li>
+  <li>
+    <strong>读写穿透，</strong>把cache当主要对象。写的时候，先更新cache，之后再更新数据库；当读的时候，缓存里读的到就返回，读不到就请求给数据库，数据库返回给cache，cache再返回，较适用数据实时性要求较高、对一致性要求严格的场景
+  </li>
+  <li>
+    <strong>异步缓存写入，</strong>和读写穿透差不多，区别在于数据库同步的方式，读写穿透是同步的，异步缓存写入是异步的
+  </li>
+  <li>
+  </li>
+</ul>
+<h3 id="缓存穿透问题-wp-block-heading"><a href="#缓存穿透问题-wp-block-heading" class="anchor-link" aria-label="缓存穿透问题-wp-block-heading"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon anchor-icon"><path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"/></svg></a>缓存穿透问题 {.wp-block-heading}<figure class="wp-block-image size-large"></h3>
+<div class='fancybox-wrapper lazyload-container-unload' data-fancybox='post-images' href='https://www.yuyuyuyi1.xyz/wp-content/uploads/2025/09/image-20250817120727735-1024x490.png'>
+  <img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  loading="lazy" decoding="async" width="1024" height="490" data-original="https://www.yuyuyuyi1.xyz/wp-content/uploads/2025/09/image-20250817120727735-1024x490.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" alt="" class="wp-image-485"  sizes="auto, (max-width: 1024px) 100vw, 1024px" />
+</div></figure> 
+<p><strong>缓存穿透</strong>是指客户端请求的数据在缓存中和数据库中都不存在，这样缓存永远不会生效，这些请求都会打到数据库，造成数据库压力巨大。<br>
+解决方法一般采用<strong>缓存空值。</strong></p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">if(shopJson != null && shopJson.equals("")){
+            // 说明 返回的shopJson是一个用以解决缓存穿透的""字符串
+            return null;
+        }</pre>
+<p>还有一种方法是<strong>布隆过滤器：</strong><br>
+布隆过滤器是一种​<strong>​空间效率极高（使用位数组bit array存储）的概率型数据结构​</strong>​，用于​<strong>​快速判断一个元素是否存在于某个集合中​</strong>​。<br>
+优点是空间占用小，缺点是其基于概率，仍有误判的风险（布隆过滤器说存在数据，实际上不一定存在）。</p>
+<h3 class="wp-block-heading" id="缓存击穿问题">缓存击穿问题</h3>
+<p><strong>缓存击穿问题</strong>也叫热点Key问题，就是一个被<strong>高并发访问</strong>并且<strong>缓存重建业务较复杂</strong>的key突然失效了，无数的请求访问会在瞬间给数据库带来巨大的冲击。</p>
+<p><strong>常见的解决方案有两种：</strong> 逻辑过期（设置缓存TTL永不过期，缓存数据里面加个逻辑TTL，拿数据的时候判断逻辑TTL有没有过期，优点是性能高，缺点是内存占用大） 互斥锁（加锁访问数据库，性能差，容易出现死锁，但是内存占用小）</p>
+<p>**互斥锁方案，**基于Redis的setnx指令实现，setnx指令能够实现：当且仅当 <code>key</code>不存在时，将 <code>key</code>的值设为 <code>value</code>，设置成功返回1，否则返回0，相关代码如下:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">// 当有访问数据库的请求需要处理时 自旋锁尝试拿锁
+            while (!tryLock(mutexKey)) {
+                if (++spinCount > maxSpins) {
+                    log.warn("获取锁失败，已达到最大自旋次数: {}", maxSpins);
+                    return null; // 或者可以返回旧数据/降级处理
+                }
+                Thread.sleep(spinInterval); // 短暂休眠后继续尝试
+            }
+
+            private boolean tryLock(String key){
+                // 基于Redis的setnex实现互斥锁
+                Boolean flag = stringRedisTemplate.opsForValue().setIfAbsent(key, "1", 10, TimeUnit.SECONDS);
+                return BooleanUtil.isTrue(flag);
+            }
+    
+            private boolean unlock(String key){
+                Boolean flag = stringRedisTemplate.delete(key);
+                return BooleanUtil.isTrue(flag);
+            }</pre>
+<p>测试一下，自己的PC上（AMD R7-7730U）QPS（query per second）400的时候，接口吞吐能达到339。<figure class="wp-block-image size-large"></p>
+<div class='fancybox-wrapper lazyload-container-unload' data-fancybox='post-images' href='https://www.yuyuyuyi1.xyz/wp-content/uploads/2025/09/image-2-1024x80.png'>
+  <img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  loading="lazy" decoding="async" width="1024" height="80" data-original="https://www.yuyuyuyi1.xyz/wp-content/uploads/2025/09/image-2-1024x80.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" alt="" class="wp-image-511"  sizes="auto, (max-width: 1024px) 100vw, 1024px" />
+</div></figure> 
+<p><strong>逻辑过期方案</strong>，要注意<strong>一定要先进行数据预热</strong>。就不压测了，因为自己的实现上也加了一层互斥锁访问数据库，效果肯定是没上一个方案好的。</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">// 通过自己的逻辑TTL判断是否过期 如果过期 需要缓存重建
+        RedisData redisData = JSONUtil.toBean(shopJson, RedisData.class);
+        JSONObject data = (JSONObject)redisData.getData();
+        Shop shop = JSONUtil.toBean(data, Shop.class);
+        LocalDateTime expireTime = redisData.getExpireTime();
+
+        // 判断是否过期
+        if(expireTime.isAfter(LocalDateTime.now())){
+            // 未过期 返回
+             return shop;
+        }
+        
+        // 拿锁访问数据库
+        try {
+            // 自旋锁尝试拿锁
+            while (!tryLock(mutexKey)) {
+                if (++spinCount > maxSpins) {
+                    log.warn("获取锁失败，已达到最大自旋次数: {}", maxSpins);
+                    return null; // 或者可以返回旧数据/降级处理
+                }
+                Thread.sleep(spinInterval); // 短暂休眠后继续尝试
+            }
+            // 拿锁成功 使用线程进行缓存重建
+            CACHE_REBUILD_POOL.submit(() -> {
+                this.saveShop2Redis(id, 30L);
+            });
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } finally {
+            unlock(mutexKey);
+        }
+
+    // 数据预热、重建缓存
+    public void saveShop2Redis(Long id, Long expireSeconds){
+        Shop shop = this.getById(id);
+        log.info("查询到shop");
+        RedisData redisData = new RedisData();
+        redisData.setData(shop);
+        redisData.setExpireTime(LocalDateTime.now().plusSeconds(expireSeconds));
+        stringRedisTemplate.opsForValue().set(CACHE_SHOP_KEY + id, JSONUtil.toJsonStr(redisData));
+    }</pre>
+<h3 class="wp-block-heading" id="缓存雪崩问题">缓存雪崩问题</h3>
+<p><strong>缓存雪崩</strong>是指在同一时段大量的缓存key同时失效或者Redis服务宕机，导致大量请求到达数据库，带来巨大压力<br>
+一般解决方法：<strong>给不同的Key的TTL添加随机值</strong>、<strong>给业务添加多级缓存</strong>。</p>
+<p>本项目没有对预防缓存雪崩进行实现。</p>
+<h2 class="wp-block-heading" id="秒杀场景">秒杀场景</h2>
+<h3 class="wp-block-heading" id="分布式id">分布式ID</h3>
+<p><strong>为什么要实现全局唯一ID？</strong><br>
+自增ID有些局限性：安全隐私问题，自增太规律的话，可能会被人推测出一些敏感信息；不方便分布式储存，一般来说，数据库的表，超过500万行就要考虑分表分库了。</p>
+<p><strong>分布式ID的实现方式</strong><br>
+一般有：数据库自增、UUID、Redis自增。本项目，采用的实现方式是<strong>时间戳</strong>+<strong>Redis自增的序列号</strong>。<br>
+本项目的ID是64位的，timestamp基于标准时间gap确定，之后将timestamp左移32位后接上Redis缓存返回的自增序列号。</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">public long nextId(String keyPrefix){
+        // 1、生成时间戳
+        LocalDateTime now = LocalDateTime.now();
+        long nowSecond = now.toEpochSecond(ZoneOffset.UTC);
+        long timestamp = nowSecond - BEGIN_TIMESTAMP;
+        // 2、生成序列号
+        // 以当天的时间戳为key，防止一直自增下去导致超时，这样每天的极限都是 2^{31}
+        String date = now.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+        Long count = stringRedisTemplate.opsForValue().increment(ID_PREFIX + keyPrefix + ":" + date);
+
+
+        // 3、拼接并返回 位运算
+        // key是不变的 订单号是基于timestamp和Redis自增拼接的
+        return timestamp &lt;&lt; COUNT_BITS | count;
+    }</pre>
+<h3 class="wp-block-heading" id="乐观锁解决单体架构下的库存超卖问题"><strong>乐观锁解决单体架构下的库存超卖问题</strong></h3>
+<p>高并发场景下，如果什么也不做，会出现库存<strong>超卖问题</strong>。例子如下，线程1和线程2都查订单，都觉得库存还够，然后就都对订单进行了扣减。问题的本质是因为查库存-扣减订单的<strong>过程是非原子化导致的。</strong></p>
+<p><strong>超卖问题的常见解决方案：</strong><br>
+**悲观锁，**认为线程安全问题一定会发生，因此操作数据库之前都需要先获取锁，确保线程串行执行。常见的悲观锁有：synchronized、lock<br>
+**乐观锁，**认为线程安全问题不一定发生，因此不加锁，只会在更新数据库的时候去判断有没有其它线程对数据进行修改，如果没有修改则认为是安全的，直接更新数据库中的数据即可，如果修改了则说明不安全，直接抛异常或者等待重试。常见的实现方式有：<strong>版本号法（读取的时候看一眼版本号，要修改的时候再看一眼版本号， 版本号相同说明没被改过）、CAS操作</strong></p>
+<p><strong>用CAS方法，解决乐观锁的超卖问题：</strong><br>
+CAS法不加版本号，在set数据库的时候，再查一次数据，看看是否有变化，不变就说明没人改过，修改即可。下面代码的实现CAS方法的核心就是<code>eq(&quot;stock&quot;, voucher.getStock())</code>，不过这样会导致数据已修改就终止操作了，所以可以改进为：<code>gt(SeckillVoucher::getStock, 0)</code></p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">// 添加乐观锁 CAS法 gt(SeckillVoucher::getStock, 0)是eq("stock", voucher.getStock())的优化版
+        boolean success = seckillVoucherService.update().setSql("stock = stock - 1")
+                .eq("stock", voucher.getStock()).gt(SeckillVoucher::getStock, 0).update();
+        if(!success){
+            return Result.fail("更新数据库失败");
+        }</pre>
+<p><mark style="background-color:rgba(0, 0, 0, 0)" class="has-inline-color has-luminous-vivid-amber-color">注意</mark>：这种方案，能够保证库存不低于0，但是<strong>不能保证一人一单。</strong><br>
+要想实现<strong>单机统架构下的一人一单，直接考虑悲观锁。</strong></p>
+<h3 class="wp-block-heading" id="分布式锁解决集群架构下的一人一单问题">分布式锁解决集群架构下的一人一单问题</h3>
+<p>通过加悲观锁，能够解决单机架构下的一人一单问题，但是在集群下就行不通了。在集群模式下，加锁只是对该JVM给当前这台服务器的请求的加锁，而集群是多台服务器，所以要使用分布式锁，满足<strong>集群模式下多进程可见</strong>并且互斥的锁。</p>
+<p>简单的Redis分布式锁实现方式，基于<code>SETNX</code>指令，key为锁名称，value为每个线程自己的threadID。代码如下：</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">@Override
+    public boolean tryLock(long timeoutSec) {
+        String threadId = ID_PREFIX + Thread.currentThread().getId() + "";
+        // SET KEY_PREFIX:name  name为锁名称
+        Boolean result = stringRedisTemplate.opsForValue()
+                .setIfAbsent(KEY_PREFIX + name, threadId, timeoutSec, TimeUnit.SECONDS);
+        return Boolean.TRUE.equals(result);
+    }
+    @Override
+    public void unlock() {
+        stringRedisTemplate.delete(KEY_PREFIX + name);
+    }</pre>
+<h3 class="wp-block-heading" id="分布式锁的优化">分布式锁的优化</h3>
+<h4 class="wp-block-heading" id="锁误删问题">锁误删问题</h4>
+<p>为了避免长时间持有锁导致的效率低下等问题，为Redis的锁添加了一个持有时间。但是假如某线程在持有锁的时候，进行了IO等耗时操作，然后Redis到期释放锁了，线程2拿到了锁执行任务，等线程1IO完毕之后，其以为自己还持有锁，就执行了放锁操作，结果实际上这个锁已经是线程二正在使用了。</p>
+<p>最简单的优化方式就是，放锁的时候，判断一下是不是自己的锁。</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">@Override
+    public void unlock() {
+        // 判断锁的线程标识是否与当前线程一致
+        String currentThreadFlag = ID_PREFIX + Thread.currentThread().getId();
+        String redisThreadFlag = stringRedisTemplate.opsForValue().get(KEY_PREFIX + name);
+        if (currentThreadFlag != null || currentThreadFlag.equals(redisThreadFlag)) {
+            // 一致，说明当前的锁就是当前线程的锁，可以直接释放
+            stringRedisTemplate.delete(KEY_PREFIX + name);
+        }
+    }</pre><figure class="wp-block-image size-large">
+<div class='fancybox-wrapper lazyload-container-unload' data-fancybox='post-images' href='https://www.yuyuyuyi1.xyz/wp-content/uploads/2025/09/image-20250819231415772-1024x513.png'>
+  <img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  loading="lazy" decoding="async" width="1024" height="513" data-original="https://www.yuyuyuyi1.xyz/wp-content/uploads/2025/09/image-20250819231415772-1024x513.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" alt="" class="wp-image-540"  sizes="auto, (max-width: 1024px) 100vw, 1024px" />
+</div></figure> 
+<h4 class="wp-block-heading" id="lua脚本解决分布式锁误删问题实现原子化锁释放">Lua脚本解决分布式锁误删问题、实现原子化锁释放</h4>
+<p>判断锁是否是自己的到释放锁这一过程并不是原子性的，可能会出现判断完了后刚好JVM跑去执行GC 把线程阻塞住了，导致超时释放锁，同样会导致锁误删问题。解决方法是需要确保判断到释放的过程是原子性。使用Lua脚本。</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">// static包裹的静态代码块 作用是在类初始化的时候调用一次
+    private static final DefaultRedisScript&lt;Long> UNLOCK_SCRIPT;
+
+    static {
+        UNLOCK_SCRIPT = new DefaultRedisScript&lt;>();
+        UNLOCK_SCRIPT.setLocation(new ClassPathResource("lua/unlock.lua"));
+        UNLOCK_SCRIPT.setResultType(Long.class);
+    }
+    
+    
+    // 放锁 放锁利用Lua脚本原子化操作
+    public void unlock() {
+        // 执行lua脚本
+        // stringRedisTemplate.execute第二个参数是一个集合
+        stringRedisTemplate.execute(
+                UNLOCK_SCRIPT,
+                Collections.singletonList(KEY_PREFIX + name),
+                ID_PREFIX + Thread.currentThread().getId()
+        );
+    }</pre>
+<p>Lua脚本的流程：</p>
+<ol class="wp-block-list">
+  <li>
+    获取锁中的线程标示
+  </li>
+  <li>
+    判断是否与指定的标示（当前线程标示）一致
+  </li>
+  <li>
+    如果一致则释放锁（删除）
+  </li>
+  <li>
+    如果不一致则什么都不做
+  </li>
+</ol>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">-- 先获取线程标识 get key[1]
+local id = redis.call('get', KEYS[1])
+
+-- 比较缓存中的线程标识与当前线程标识是否一致
+if (id == ARGV[1]) then
+    -- 一致，直接删除
+    return redis.call('del', KEYS[1])
+end
+-- 不一致，返回0
+return 0</pre>
+<h2 class="wp-block-heading" id="实现异步秒杀优化">实现异步秒杀优化</h2>
+<p><strong>为什么用异步秒杀?</strong><br>
+串行执行的实现方法并发能力弱。</p>
+<p>分成两个线程，将耗时较短的逻辑判断放到Redis中，实际上，只要满足库存充足且一人一单，一定是可以下单成功的，完全可以直接返回给用户成功的信息，然后后台开一个线程，后台线程去慢慢执行队列里的任务（操作数据库），这样能够提供系统的并发能力。<figure class="wp-block-image size-large"></p>
+<div class='fancybox-wrapper lazyload-container-unload' data-fancybox='post-images' href='https://www.yuyuyuyi1.xyz/wp-content/uploads/2025/09/image-4-1024x469.png'>
+  <img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  loading="lazy" decoding="async" width="1024" height="469" data-original="https://www.yuyuyuyi1.xyz/wp-content/uploads/2025/09/image-4-1024x469.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" alt="" class="wp-image-565"  sizes="auto, (max-width: 1024px) 100vw, 1024px" />
+</div></figure> 
+<h3 class="wp-block-heading" id="基于jvm阻塞队列实现">基于JVM阻塞队列实现</h3>
+<p>基于JVM自己的阻塞队列来实现异步操作，即新开的线程将任务放入JVM自己的阻塞队列中。实现细节如下：</p>
+<p>Java的阻塞队列为：</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">private BlockingQueue&lt;VoucherOrder> ordersTask = new ArrayBlockingQueue&lt;>(1024 * 1024);</pre>
+<p>并且，需要在一开始，就注册一个线程处理任务。</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">// Spring Bean 初始化完成后
+	@PostConstruct
+    private void init(){
+         SECKILL_ORDER_EXECUTOR.submit(new VoucherOrderHandler());
+    }
+    /**
+     * 线程任务: 不断从阻塞队列中获取订单
+     */
+    private class VoucherOrderHandler implements Runnable {
+
+        @Override
+        public void run() {
+            while (true){
+                try {
+                    // 取任务
+                    log.info("get task");
+                    VoucherOrder voucherOrder = ordersTask.take();
+                    // 执行任务
+                    handleVoucherOrder(voucherOrder);
+                } catch (InterruptedException e) {
+                    log.error("异常", e);
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+    }
+    // 任务为将数据持久化到数据库中。
+    private void handleVoucherOrder(VoucherOrder voucherOrder){
+        //创建订单 不能再userHoder了 因为现在是多线程 ThradLocal下取不到主线程的东西
+        // Long userId = UserHolder.getUser().getId();
+        Long userId = voucherOrder.getUserId();
+        // 自己创建分布式锁对象
+        SimpleRedisLock lock = new SimpleRedisLock(stringRedisTemplate,"order:" + userId);
+        boolean isLocked = lock.tryLock(1200);
+        if(!isLocked){
+            log.info("获取锁失败");
+        }
+        try{
+            log.info("threadProxy.createVoucherOrder_v2(voucherOrder);");
+            // 具体的持久化任务 交由createVoucherOrder_v2执行
+            threadProxy.createVoucherOrder_v2(voucherOrder);
+        }finally {
+            lock.unlock();
+        }
+    }
+</pre>
+<p>此处有个关键点，关于<code>threadProxy</code>的使用。<br>
+<strong><code>AopContext.currentProxy()</code>的作用</strong>是获取当前类的 Spring AOP 代理对象。<strong>具体来说，为什么子线程的任务<code>handleVoucherOrder</code>需要用<code>threadProxy.createVoucherOrder_v2(voucherOrder)</code>，通过主线程的代理来调用处理方法，而不直接用this.来访问？</strong><br>
+<strong>核心就在于</strong>：<br>
+<strong>Spring 事务的本质​</strong>​：当在方法上添加 <code>@Transactional</code>时，Spring 会为该 Bean 创建一个代理对象，在目标方法执行前后插入事务管理逻辑（如开启事务、提交/回滚）。如果直接用<code>this.createVoucherOrder_v2</code>来执行添加操作，会导致<code>createVoucherOrder_v2</code>函数的@Transactional失效，既事务失效。因为直接用<code>this.createVoucherOrder_v2</code>，<code>this</code>指向的是​<strong>​原始对象​</strong>​（<code>VoucherOrderServiceImpl</code>），而非 Spring 生成的代理对象。</p>
+<p>最后，controller直接指向的serviceimpl如下，Lua脚本主要完成了库存检查与用户是否有购买资格的判断。</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">// 查优惠券等操作 放到lua脚本里面写
+        Long orderId = redisIDWorker.nextId("order");
+        Long userId = UserHolder.getUser().getId();
+
+        // 1、执行Lua脚本，判断用户是否具有秒杀资格
+        log.info("执行lua脚本 添加到redis消息队列");
+        Long result = stringRedisTemplate.execute(
+                SECKILL_SCRIPT_v2,
+                Collections.emptyList(),
+                voucherId.toString(), userId.toString(), orderId.toString());
+        int r = result.intValue();
+        // 如果r = 0 说明有购买资格 待处理事件已放入消息队列
+        if(r != 0){
+            // 脚本执行结果不为0 无购买资格
+            return Result.fail(r == 2 ? "不能重复下单" : "库存不足");
+        }
+
+        VoucherOrder voucherOrder = new VoucherOrder();
+        voucherOrder.setVoucherId(voucherId);
+        voucherOrder.setUserId(userId);
+        // 作为类的成员变量赋值，方便子线程使用主线程获得的完整代理对象
+        threadProxy = (IVoucherOrderService)AopContext.currentProxy();</pre>
+<h3 class="wp-block-heading" id="基于redis-stream实现">基于Redis-Stream实现</h3>
+<p>JVM阻塞队列是基于内存的，掉电的话阻塞队列里的任务全消失了，而且jvm有JVM自己的内存限制。用Redis自带的队列来实现消息队列更合适。</p>
+<p>Redis中能够实现MQ效果的主要由以下三种方式：<figure class="wp-block-image size-full"></p>
+<div class='fancybox-wrapper lazyload-container-unload' data-fancybox='post-images' href='https://www.yuyuyuyi1.xyz/wp-content/uploads/2025/09/image-7.png'>
+  <img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  loading="lazy" decoding="async" width="968" height="426" data-original="https://www.yuyuyuyi1.xyz/wp-content/uploads/2025/09/image-7.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" alt="" class="wp-image-581"  sizes="auto, (max-width: 968px) 100vw, 968px" />
+</div></figure> 
+<p>stream类型消息队列，使用的是消费者组模式（Consumer Group）<br>
+<strong>消费者组(Consumer Group)：将多个消费者划分到一个组中，监听同一个队列，具备以下特点</strong></p>
+<ul class="wp-block-list">
+  <li>
+    <strong>消息分流</strong>：队列中的消息会分留给组内的不同消费者，而不是重复消费者，从而加快消息处理的速度
+  </li>
+  <li>
+    <strong>消息标识</strong>：消费者会维护一个标识，记录最后一个被处理的消息，哪怕消费者宕机重启，还会从标识之后读取消息，确保每一个消息都会被消费
+  </li>
+  <li>
+    <strong>消息确认</strong>：消费者获取消息后，消息处于pending状态，并存入一个pending-list，当处理完成后，需要通过XACK来确认消息，标记消息为已处理，才会从pending-list中移除
+  </li>
+</ul>
+<p>代码实现和基于JVM的架构差不多，只是需要添加lua脚本：</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">-- 如果能够执行添加库存的操作，就将添加消息
+redis.call('XADD', 'stream.orders', '*', 'userId', userId, 'voucherId', voucherId, 'id', orderId);</pre>
+<p>线程中执行任务的代码为：</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">// 获取消息队列中的订单信息
+                    List&lt;MapRecord&lt;String, Object, Object>> list = stringRedisTemplate.opsForStream().read(
+                            Consumer.from("g1", "c1"),
+                            StreamReadOptions.empty().count(1).block(Duration.ofSeconds(2)),
+                            StreamOffset.create("stream.orders", ReadOffset.lastConsumed())
+                    );
+                    // 2、判断消息获取是否成功
+                    if (list == null || list.isEmpty()) {
+                        // 2.1 消息获取失败，说明没有消息，进入下一次循环获取消息
+                        continue;
+                    }
+                    // 获取成功可以下单</pre>
+<h3 class="wp-block-heading" id="压力测试对比">压力测试对比</h3>
+<p>压测对比三种情况（普通乐观锁实现的并发访问、基于JVM阻塞队列的异步优化、基于Redis-Stream实现的异步优化）</p>
+<div class="wp-block-image">
+  <figure class="aligncenter size-large">
+  <div class='fancybox-wrapper lazyload-container-unload' data-fancybox='post-images' href='https://www.yuyuyuyi1.xyz/wp-content/uploads/2025/09/image-5-1024x249.png'>
+    <img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  loading="lazy" decoding="async" width="1024" height="249" data-original="https://www.yuyuyuyi1.xyz/wp-content/uploads/2025/09/image-5-1024x249.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" alt="" class="wp-image-571"  sizes="auto, (max-width: 1024px) 100vw, 1024px" />
+  </div><figcaption class="wp-element-caption">乐观锁实现的串行版本 qps1000, 吞吐189.9</figcaption></figure>
+</div>
+<div class="wp-block-image">
+  <figure class="aligncenter size-large">
+  <div class='fancybox-wrapper lazyload-container-unload' data-fancybox='post-images' href='https://www.yuyuyuyi1.xyz/wp-content/uploads/2025/09/image-6-1024x259.png'>
+    <img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  loading="lazy" decoding="async" width="1024" height="259" data-original="https://www.yuyuyuyi1.xyz/wp-content/uploads/2025/09/image-6-1024x259.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" alt="" class="wp-image-578"  sizes="auto, (max-width: 1024px) 100vw, 1024px" />
+  </div><figcaption class="wp-element-caption">基于JVM阻塞队列的异步优化版本 qps1000，吞吐量暴涨到799</figcaption></figure>
+</div>
+<div class="wp-block-image">
+  <figure class="aligncenter size-large">
+  <div class='fancybox-wrapper lazyload-container-unload' data-fancybox='post-images' href='https://www.yuyuyuyi1.xyz/wp-content/uploads/2025/09/image-8-1024x258.png'>
+    <img class="lazyload lazyload-style-1" src="data:image/svg+xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc+"  loading="lazy" decoding="async" width="1024" height="258" data-original="https://www.yuyuyuyi1.xyz/wp-content/uploads/2025/09/image-8-1024x258.png" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" alt="" class="wp-image-584"  sizes="auto, (max-width: 1024px) 100vw, 1024px" />
+  </div><figcaption class="wp-element-caption">基于Redis_Stream的异步优化版本 qps1000，吞吐量能达到999</figcaption></figure>
+</div>
+<h2 class="wp-block-heading" id="点赞排名用户签到与uv统计">点赞排名、用户签到与UV统计</h2>
+<h3 class="wp-block-heading" id="使用zset实现点赞排名">使用ZSet实现点赞排名</h3>
+<p>基于Redis的<strong>SortedSet</strong>结构实现。ZSet 有两种不同的实现，分别是 ziplist 和 skiplist。当有序集合对象同时满足以下两个条件时，使用 ziplist（所有数据（包括元素值、长度信息）存储在<strong>一块连续的内存空间​</strong>​中，​<strong>​省去了指针​</strong>​，直接通过<strong>偏移量​</strong>​访问相邻元素。）：<br>
+<strong>ZSet 保存的键值对数量少于 128 个；<br>
+每个元素的长度小于 64 字节。</strong><br>
+如果不满足上述两个条件，那么使用 skiplist 。</p>
+<p>常用的命令：<br>
+<code>zadd key value score</code>，添加value的score<br>
+<code>zscore key value</code>，获取value的score，没有就返回不存在</p>
+<p>默认排序规则：</p>
+<ul class="wp-block-list">
+  <li>
+    <code>ZRANGE key 0 -1</code> → 返回所有元素，按&nbsp;<code>score</code>从小到大排序。升序
+  </li>
+  <li>
+    <code>ZREVRANGE key 0 -1</code> → 返回所有元素，按&nbsp;<code>score</code>从大到小排序。降序
+  </li>
+</ul>
+<p>为了实现点赞排名（优先显示最近的点赞用户，类似朋友圈），需要将时间戳作为score（score默认为升序）实现逻辑分为：点赞博客功能与查询点赞功能</p>
+<p>点赞功能：判断用户是否点赞，如果没点赞就zadd，否则就remove.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">Double score = stringRedisTemplate.opsForZSet().score(key, userId.toString());
+        boolean result;
+        if (score == null) {
+            // 1.1 用户未点赞，点赞数+1
+            result = this.update(new LambdaUpdateWrapper&lt;Blog>()
+                    .eq(Blog::getId, id)
+                    .setSql("liked = liked + 1"));
+            if (result) {
+                // 数据库更新成功，更新缓存 zadd key value score
+                stringRedisTemplate.opsForZSet().add(key, userId.toString(), System.currentTimeMillis());
+            }
+        } else {
+            // 1.2 用户已点赞，点赞数-1
+            result = this.update(new LambdaUpdateWrapper&lt;Blog>()
+                    .eq(Blog::getId, id)
+                    .setSql("liked = liked - 1"));
+            if (result) {
+                // 数据更新成功，更新缓存 zremove key value
+                stringRedisTemplate.opsForZSet().remove(key, userId.toString());
+            }
+        }</pre>
+<p>点赞展示功能：</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">// 查询Top5的点赞用户 zrange key 0 4
+        String key = BLOG_LIKED_KEY + id;
+        Set&lt;String> top5 = stringRedisTemplate.opsForZSet().range(key, 0, 4);</pre>
+<h3 class="wp-block-heading" id="用户签到">用户签到</h3>
+<p>用户签到功能，用bitmap来实现。Redis中有一种特殊的数据结构，叫Bitmap。</p>
+<p>BitMap的操作命令有：</p>
+<ul class="wp-block-list">
+  <li>
+    SETBIT：向指定位置（offset）存入一个0或1
+  </li>
+  <li>
+    GETBIT ：获取指定位置（offset）的bit值
+  </li>
+  <li>
+    BITCOUNT ：统计BitMap中值为1的bit位的数量
+  </li>
+  <li>
+    BITFIELD <em>key </em>GET <em>type offset </em>：读取指定位数的bit位
+  </li>
+</ul>
+<p><strong>在 Redis 中，一个 Bitmap 的寻址上限是 2³²（约 42.9 亿）个位，这恰好需要 512MB 的内存来存储，可以说Bitmap最大上限叫啥512MB</strong><br>
+原因：当使用 <code>SETBIT</code>命令时，实际上是在操作一个 String 值。下面的 <code>offset</code>（偏移量）参数的类型是 <strong>整数</strong>，在Redis的实现中，这个 <code>offset</code>被定义为 <strong>无符号 32 位整数</strong>。因此只能寻址 2³²</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">SETBIT key offset value</pre>
+<p>实现代码：</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">// 获取当前登录用户
+        Long userId = UserHolder.getUser().getId();
+        // 获取日期
+        LocalDateTime now = LocalDateTime.now();
+        // 拼接key
+        String keySuffix = now.format(DateTimeFormatter.ofPattern(":yyyyMM"));
+        String key = USER_SIGN_KEY + userId + keySuffix;
+        // 获取今天是本月的第几天
+        int dayOfMonth = now.getDayOfMonth();
+        // 获取本月截止今天为止的所有的签到记录，返回的是一个List, result.get(0)获取到一个十进制的数字
+        List&lt;Long> result = stringRedisTemplate.opsForValue().bitField(
+                key,
+                BitFieldSubCommands.create()
+                        .get(BitFieldSubCommands.BitFieldType.unsigned(dayOfMonth)).valueAt(0)
+        );</pre>
+<h3 class="wp-block-heading" id="uv统计">UV统计</h3>
+<p>UV：全称Unique Visitor，<strong>独立访客量</strong>。1天内同一个用户多次访问该网站，只记录1次。<br>
+PV：全称Page View，<strong>页面访问量或点击量</strong>，用户每访问网站的一个页面，记录1次PV，用户多次打开页面，则记录多次PV。往往用来衡量网站的流量。</p>
+<p><strong>UV统计在服务端做会比较麻烦，因为要判断该用户是否已经统计过了，需要将统计过的用户信息保存。但是如果每个访问的用户都保存到Redis中，数据量会非常恐怖。</strong></p>
+<p>Hyperloglog(HLL)是从Loglog算法派生的概率算法，用于确定非常大的集合的基数，而不需要存储其所有值。Redis中的HLL是基于string结构实现的，单个HLL的内存永远小于16kb，内存占用低的令人发指！作为代价，其测量结果是概率性的，有小于**0.81％**的误差。不过对于UV统计来说，这完全可以忽略。</p>
+<p>代码实现如下，保存100W条记录，内存占用增加几乎为0：</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="generic" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">/**
+     * 测试 HyperLogLog 实现 UV 统计的误差
+     */
+    @Test
+    public void testHyperLogLog() {
+        String[] values = new String[1000];
+        // 批量保存100w条用户记录，每一批1个记录
+        int j = 0;
+        for (int i = 0; i &lt; 1000000; i++) {
+            j = i % 1000;
+            values[j] = "user_" + i;
+            if (j == 999) {
+                // 发送到Redis
+                stringRedisTemplate.opsForHyperLogLog().add("hl2", values);
+            }
+        }
+        // 统计数量
+        Long count = stringRedisTemplate.opsForHyperLogLog().size("hl2");
+        System.out.println("count = " + count);
+    }</pre>
+<h1 class="wp-block-heading" id="项目部署">项目部署</h1>
+<ul class="wp-block-list">
+  <li>
+    前端：localhost:8080
+  </li>
+  <li>
+    后端：localhost:8081
+  </li>
+</ul>
+<p>Windows下启动：</p>
+<ul class="wp-block-list">
+  <li>
+    启动前端：<code>start nginx</code>，重新加载：<code>nginx -s reload</code>
+  </li>
+  <li>
+    启动Redis：启动Redis目录下的<code>start.bat</code>
+  </li>
+  <li>
+    启动MySQL
+  </li>
+  <li>
+    启动后端：Idea直接启动项目
+  </li>
+</ul>
+
+            </div>
+
+            
+    
+    
+        <ul class="post-copyright">
+            <li class="copyright-item author"><span class="copyright-item-text">作者</span>：<a href="https://io-oi.me/" class="p-author h-card" target="_blank" rel="noopener">wangkunlin</a></li>
+            
+                
+                
+                
+                
+                <li class="copyright-item link"><span class="copyright-item-text">链接</span>：<a href="/2025/09/25/springbootvue%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84/" target="_blank" rel="noopener">https://yuyuyuyi1.github.io/2025/09/25/springbootvue黑马点评/</a></li>
+            
+            <li class="copyright-item license"><span class="copyright-item-text">许可</span>：
+<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a></li>
+            
+        </ul>
+    
+
+
+
+        </article>
+
+        
+
+        
+    <div class="updated-badge-container">
+        <span title="Updated @ 2025-12-23 13:27:20 UTC" style="cursor:help">
+
+<svg xmlns="http://www.w3.org/2000/svg" width="130" height="20" class="updated-badge"><linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="a"><rect width="130" height="20" rx="3" fill="#fff"/></clipPath><g clip-path="url(#a)"><path class="updated-badge-left" d="M0 0h55v20H0z"/><path class="updated-badge-right" d="M55 0h75v20H55z"/><path fill="url(#b)" d="M0 0h130v20H0z"/></g><g fill="#fff" text-anchor="middle" font-size="110"><text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text><text x="285" y="140" textLength="450" transform="scale(.1)">updated</text><text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">2025-12-23</text><text x="915" y="140" textLength="650" transform="scale(.1)">2025-12-23</text></g></svg>
+        </span></div>
+
+
+
+        
+
+
+        <div class="post-share">
+
+        
+
+        <div class="share-items">
+
+            
+            
+                
+                    <div class="share-item facebook">
+                        
+                        
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://yuyuyuyi1.github.io/2025/09/25/springbootvue%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84/&amp;hashtag=%23%e9%a1%b9%e7%9b%ae" title="分享到「Facebook」" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon facebook-icon"><path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg></a>
+                    </div>
+                
+            
+                
+                    <div class="share-item mastodon">
+                            <a href="/fedishare.html#title=%0aSpringBoot&#43;Vue&#43;Redis:%20%e9%bb%91%e9%a9%ac%e7%82%b9%e8%af%84%e5%ad%a6%e4%b9%a0&amp;description=%e9%a1%b9%e7%9b%ae%e6%9d%a5%e8%87%aa%e9%bb%91%e9%a9%ac%e7%a8%8b%e5%ba%8f%e5%91%98%e7%9a%84%e9%bb%91%e9%a9%ac%e7%82%b9%e8%af%84%ef%bc%8c%e4%b8%aa%e4%ba%ba%e8%ae%a4%e4%b8%ba%e6%98%af%e5%be%88%e5%a5%bd%e7%9a%84SpringBoot&#43;Redis%e6%95%99%e7%a8%8b%e9%a1%b9%e7%9b%ae%e3%80%82%e4%b8%8d%e8%bf%87%e7%96%91%e4%bc%bc%e6%9c%89%e7%82%b9%e7%83%82%e5%a4%a7%e8%a1%97%e4%ba%86%e3%80%82%0a%e8%a7%86%e9%a2%91%e6%95%99%e7%a8%8b%ef%bc%9a%e9%bb%91%e9%a9%ac%e7%82%b9%e8%af%84%e9%a1%b9%e7%9b%ae%e5%ae%9e%e6%88%98%ef%bc%8c%e6%8e%8c%e6%8f%a1%e4%bc%81%e4%b8%9a%e5%ae%9e%e6%88%98%e9%a1%b9%e7%9b%ae%e7%9c%9f%e5%ae%9e%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af%ef%bc%8c%e4%b8%80%e5%a5%97%e7%b2%be%e9%80%9aredis%e7%bc%93%e5%ad%98%e6%8a%80%e6%9c%af_%e5%93%94%e5%93%a9%e5%93%94%e5%93%a9_bilibili%0a%e6%88%91%e7%9a%84%e5%ae%9e%e7%8e%b0%ef%bc%9agitee.com/wkling/Dianping%0aCSDN%e4%b8%8a%e4%bc%98%e8%b4%a8%e7%9a%84%e6%96%87%e5%ad%97%e6%95%99%e7%a8%8b%ef%bc%9a%e9%bb%91%e9%a9%ac%e7%82%b9%e8%af%84%e9%a1%b9%e7%9b%ae%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%ef%bc%8815w%e5%ad%97%e8%af%a6%e8%a7%a3%ef%bc%8c%e5%a0%aa%e7%a7%b0%e5%8f%b2%e4%b8%8a%e6%9c%80%e8%af%a6%e7%bb%86%ef%bc%8c%e6%ac%a2%e8%bf%8e%e6%94%b6%e8%97%8f%ef%bc%89-CSDN%e5%8d%9a%e5%ae%a2%0a&amp;url=https://yuyuyuyi1.github.io/2025/09/25/springbootvue%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84/" title="分享到「Mastodon」" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon mastodon-icon"><path d="M433 179.11c0-97.2-63.71-125.7-63.71-125.7-62.52-28.7-228.56-28.4-290.48 0 0 0-63.72 28.5-63.72 125.7 0 115.7-6.6 259.4 105.63 289.1 40.51 10.7 75.32 13 103.33 11.4 50.81-2.8 79.32-18.1 79.32-18.1l-1.7-36.9s-36.31 11.4-77.12 10.1c-40.41-1.4-83-4.4-89.63-54a102.54 102.54 0 0 1-.9-13.9c85.63 20.9 158.65 9.1 178.75 6.7 56.12-6.7 105-41.3 111.23-72.9 9.8-49.8 9-121.5 9-121.5zm-75.12 125.2h-46.63v-114.2c0-49.7-64-51.6-64 6.9v62.5h-46.33V197c0-58.5-64-56.6-64-6.9v114.2H90.19c0-122.1-5.2-147.9 18.41-175 25.9-28.9 79.82-30.8 103.83 6.1l11.6 19.5 11.6-19.5c24.11-37.1 78.12-34.8 103.83-6.1 23.71 27.3 18.4 53 18.4 175z"/></svg></a>
+                        </div>
+                    
+            
+                
+                    <div class="share-item fediverse">
+                            <a href="/fedishare.html#title=%0aSpringBoot&#43;Vue&#43;Redis:%20%e9%bb%91%e9%a9%ac%e7%82%b9%e8%af%84%e5%ad%a6%e4%b9%a0&amp;description=%e9%a1%b9%e7%9b%ae%e6%9d%a5%e8%87%aa%e9%bb%91%e9%a9%ac%e7%a8%8b%e5%ba%8f%e5%91%98%e7%9a%84%e9%bb%91%e9%a9%ac%e7%82%b9%e8%af%84%ef%bc%8c%e4%b8%aa%e4%ba%ba%e8%ae%a4%e4%b8%ba%e6%98%af%e5%be%88%e5%a5%bd%e7%9a%84SpringBoot&#43;Redis%e6%95%99%e7%a8%8b%e9%a1%b9%e7%9b%ae%e3%80%82%e4%b8%8d%e8%bf%87%e7%96%91%e4%bc%bc%e6%9c%89%e7%82%b9%e7%83%82%e5%a4%a7%e8%a1%97%e4%ba%86%e3%80%82%0a%e8%a7%86%e9%a2%91%e6%95%99%e7%a8%8b%ef%bc%9a%e9%bb%91%e9%a9%ac%e7%82%b9%e8%af%84%e9%a1%b9%e7%9b%ae%e5%ae%9e%e6%88%98%ef%bc%8c%e6%8e%8c%e6%8f%a1%e4%bc%81%e4%b8%9a%e5%ae%9e%e6%88%98%e9%a1%b9%e7%9b%ae%e7%9c%9f%e5%ae%9e%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af%ef%bc%8c%e4%b8%80%e5%a5%97%e7%b2%be%e9%80%9aredis%e7%bc%93%e5%ad%98%e6%8a%80%e6%9c%af_%e5%93%94%e5%93%a9%e5%93%94%e5%93%a9_bilibili%0a%e6%88%91%e7%9a%84%e5%ae%9e%e7%8e%b0%ef%bc%9agitee.com/wkling/Dianping%0aCSDN%e4%b8%8a%e4%bc%98%e8%b4%a8%e7%9a%84%e6%96%87%e5%ad%97%e6%95%99%e7%a8%8b%ef%bc%9a%e9%bb%91%e9%a9%ac%e7%82%b9%e8%af%84%e9%a1%b9%e7%9b%ae%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%ef%bc%8815w%e5%ad%97%e8%af%a6%e8%a7%a3%ef%bc%8c%e5%a0%aa%e7%a7%b0%e5%8f%b2%e4%b8%8a%e6%9c%80%e8%af%a6%e7%bb%86%ef%bc%8c%e6%ac%a2%e8%bf%8e%e6%94%b6%e8%97%8f%ef%bc%89-CSDN%e5%8d%9a%e5%ae%a2%0a&amp;url=https://yuyuyuyi1.github.io/2025/09/25/springbootvue%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84/" title="分享到「Fediverse」" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="64 163 873 873" class="icon fediverse-icon"><defs><linearGradient id="fediverse-gradient"><stop offset="0%" stop-color="#ff0101"/><stop offset="10%" stop-color="#9501ff"/><stop offset="50%" stop-color="#ffca01"/><stop offset="75%" stop-color="#01a3ff"/><stop offset="100%" stop-color="#65ff01"/></linearGradient></defs><path d="M539 176q-32 0 -55 22t-25 55t20.5 58t56 27t58.5 -20.5t27 -56t-20.5 -59t-56.5 -26.5h-5zM452 271l-232 118q20 20 25 48l231 -118q-19 -20 -24 -48zM619 298q-13 25 -38 38l183 184q13 -25 39 -38zM477 320l-135 265l40 40l143 -280q-28 -5 -48 -25zM581 336 q-22 11 -46 10l-8 -1l21 132l56 9zM155 370q-32 0 -55 22.5t-25 55t20.5 58t56.5 27t59 -21t26.5 -56t-21 -58.5t-55.5 -27h-6zM245 438q1 9 1 18q-1 19 -10 35l132 21l26 -50zM470 474l-26 51l311 49q-1 -8 -1 -17q1 -19 10 -36zM842 480q-32 1 -55 23t-24.5 55t21 58 t56 27t58.5 -20.5t27 -56.5t-20.5 -59t-56.5 -27h-6zM236 493q-13 25 -39 38l210 210l51 -25zM196 531q-21 11 -44 10l-9 -1l40 256q21 -10 45 -9l8 1zM560 553l48 311q21 -10 44 -9l10 1l-46 -294zM755 576l-118 60l8 56l135 -68q-20 -20 -25 -48zM781 625l-119 231 q28 5 48 25l119 -231q-28 -5 -48 -25zM306 654l-68 134q28 5 48 25l60 -119zM568 671l-281 143q19 20 24 48l265 -135zM513 771l-51 25l106 107q13 -25 39 -38zM222 795q-32 0 -55.5 22.5t-25 55t21 57.5t56 27t58.5 -20.5t27 -56t-20.5 -58.5t-56.5 -27h-5zM311 863 q2 9 1 18q-1 19 -9 35l256 41q-1 -9 -1 -18q1 -18 10 -35zM646 863q-32 0 -55 22.5t-24.5 55t20.5 58t56 27t59 -21t27 -56t-20.5 -58.5t-56.5 -27h-6z"/></svg></a>
+                        </div>
+                    
+            
+                
+                    <div class="share-item x">
+                        
+                        
+                        
+                        <a href="https://x.com/share?url=https://yuyuyuyi1.github.io/2025/09/25/springbootvue%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84/&amp;text=%0aSpringBoot&#43;Vue&#43;Redis:%20%e9%bb%91%e9%a9%ac%e7%82%b9%e8%af%84%e5%ad%a6%e4%b9%a0&amp;hashtags=%e9%a1%b9%e7%9b%ae,&amp;via=yixiuer" title="分享到「𝕏」" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon x-icon"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg></a>
+                    </div>
+                
+            
+                
+                    <div class="share-item linkedin">
+                        
+                        <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://yuyuyuyi1.github.io/2025/09/25/springbootvue%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84/&amp;title=%0aSpringBoot&#43;Vue&#43;Redis:%20%e9%bb%91%e9%a9%ac%e7%82%b9%e8%af%84%e5%ad%a6%e4%b9%a0&amp;summary=%e9%a1%b9%e7%9b%ae%e6%9d%a5%e8%87%aa%e9%bb%91%e9%a9%ac%e7%a8%8b%e5%ba%8f%e5%91%98%e7%9a%84%e9%bb%91%e9%a9%ac%e7%82%b9%e8%af%84%ef%bc%8c%e4%b8%aa%e4%ba%ba%e8%ae%a4%e4%b8%ba%e6%98%af%e5%be%88%e5%a5%bd%e7%9a%84SpringBoot&#43;Redis%e6%95%99%e7%a8%8b%e9%a1%b9%e7%9b%ae%e3%80%82%e4%b8%8d%e8%bf%87%e7%96%91%e4%bc%bc%e6%9c%89%e7%82%b9%e7%83%82%e5%a4%a7%e8%a1%97%e4%ba%86%e3%80%82%0a%e8%a7%86%e9%a2%91%e6%95%99%e7%a8%8b%ef%bc%9a%e9%bb%91%e9%a9%ac%e7%82%b9%e8%af%84%e9%a1%b9%e7%9b%ae%e5%ae%9e%e6%88%98%ef%bc%8c%e6%8e%8c%e6%8f%a1%e4%bc%81%e4%b8%9a%e5%ae%9e%e6%88%98%e9%a1%b9%e7%9b%ae%e7%9c%9f%e5%ae%9e%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af%ef%bc%8c%e4%b8%80%e5%a5%97%e7%b2%be%e9%80%9aredis%e7%bc%93%e5%ad%98%e6%8a%80%e6%9c%af_%e5%93%94%e5%93%a9%e5%93%94%e5%93%a9_bilibili%0a%e6%88%91%e7%9a%84%e5%ae%9e%e7%8e%b0%ef%bc%9agitee.com/wkling/Dianping%0aCSDN%e4%b8%8a%e4%bc%98%e8%b4%a8%e7%9a%84%e6%96%87%e5%ad%97%e6%95%99%e7%a8%8b%ef%bc%9a%e9%bb%91%e9%a9%ac%e7%82%b9%e8%af%84%e9%a1%b9%e7%9b%ae%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%ef%bc%8815w%e5%ad%97%e8%af%a6%e8%a7%a3%ef%bc%8c%e5%a0%aa%e7%a7%b0%e5%8f%b2%e4%b8%8a%e6%9c%80%e8%af%a6%e7%bb%86%ef%bc%8c%e6%ac%a2%e8%bf%8e%e6%94%b6%e8%97%8f%ef%bc%89-CSDN%e5%8d%9a%e5%ae%a2%0a&amp;source=yuyuyuyi1%27s%20Blog" title="分享到「LinkedIn」" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon linkedin-icon"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg></a>
+                    </div>
+                
+            
+                
+                    <div class="share-item telegram">
+                        
+                        <a href="https://t.me/share/url?url=https://yuyuyuyi1.github.io/2025/09/25/springbootvue%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84/&amp;text=%0aSpringBoot&#43;Vue&#43;Redis:%20%e9%bb%91%e9%a9%ac%e7%82%b9%e8%af%84%e5%ad%a6%e4%b9%a0" title="分享到「Telegram」" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" class="icon telegram-icon"><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm121.8 169.9l-40.7 191.8c-3 13.6-11.1 16.9-22.4 10.5l-62-45.7-29.9 28.8c-3.3 3.3-6.1 6.1-12.5 6.1l4.4-63.1 114.9-103.8c5-4.4-1.1-6.9-7.7-2.5l-142 89.4-61.2-19.1c-13.3-4.2-13.6-13.3 2.8-19.7l239.1-92.2c11.1-4 20.8 2.7 17.2 19.5z"/></svg></a>
+                    </div>
+                
+            
+                
+                    <div class="share-item weibo">
+                        
+                        <a href="https://service.weibo.com/share/share.php?&amp;url=https://yuyuyuyi1.github.io/2025/09/25/springbootvue%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84/&amp;title=%0aSpringBoot&#43;Vue&#43;Redis:%20%e9%bb%91%e9%a9%ac%e7%82%b9%e8%af%84%e5%ad%a6%e4%b9%a0&amp;pic=data:image/svg&#43;xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc&#43;&amp;searchPic=false" title="分享到「新浪微博」" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon weibo-icon"><path d="M407 177.6c7.6-24-13.4-46.8-37.4-41.7-22 4.8-28.8-28.1-7.1-32.8 50.1-10.9 92.3 37.1 76.5 84.8-6.8 21.2-38.8 10.8-32-10.3zM214.8 446.7C108.5 446.7 0 395.3 0 310.4c0-44.3 28-95.4 76.3-143.7C176 67 279.5 65.8 249.9 161c-4 13.1 12.3 5.7 12.3 6 79.5-33.6 140.5-16.8 114 51.4-3.7 9.4 1.1 10.9 8.3 13.1 135.7 42.3 34.8 215.2-169.7 215.2zm143.7-146.3c-5.4-55.7-78.5-94-163.4-85.7-84.8 8.6-148.8 60.3-143.4 116s78.5 94 163.4 85.7c84.8-8.6 148.8-60.3 143.4-116zM347.9 35.1c-25.9 5.6-16.8 43.7 8.3 38.3 72.3-15.2 134.8 52.8 111.7 124-7.4 24.2 29.1 37 37.4 12 31.9-99.8-55.1-195.9-157.4-174.3zm-78.5 311c-17.1 38.8-66.8 60-109.1 46.3-40.8-13.1-58-53.4-40.3-89.7 17.7-35.4 63.1-55.4 103.4-45.1 42 10.8 63.1 50.2 46 88.5zm-86.3-30c-12.9-5.4-30 .3-38 12.9-8.3 12.9-4.3 28 8.6 34 13.1 6 30.8.3 39.1-12.9 8-13.1 3.7-28.3-9.7-34zm32.6-13.4c-5.1-1.7-11.4.6-14.3 5.4-2.9 5.1-1.4 10.6 3.7 12.9 5.1 2 11.7-.3 14.6-5.4 2.8-5.2 1.1-10.9-4-12.9z"/></svg></a>
+                    </div>
+                
+            
+                
+                    <div class="share-item douban">
+                        
+                        <a href="https://www.douban.com/share/service?href=https://yuyuyuyi1.github.io/2025/09/25/springbootvue%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84/&amp;name=%0aSpringBoot&#43;Vue&#43;Redis:%20%e9%bb%91%e9%a9%ac%e7%82%b9%e8%af%84%e5%ad%a6%e4%b9%a0&amp;text=%e9%a1%b9%e7%9b%ae%e6%9d%a5%e8%87%aa%e9%bb%91%e9%a9%ac%e7%a8%8b%e5%ba%8f%e5%91%98%e7%9a%84%e9%bb%91%e9%a9%ac%e7%82%b9%e8%af%84%ef%bc%8c%e4%b8%aa%e4%ba%ba%e8%ae%a4%e4%b8%ba%e6%98%af%e5%be%88%e5%a5%bd%e7%9a%84SpringBoot&#43;Redis%e6%95%99%e7%a8%8b%e9%a1%b9%e7%9b%ae%e3%80%82%e4%b8%8d%e8%bf%87%e7%96%91%e4%bc%bc%e6%9c%89%e7%82%b9%e7%83%82%e5%a4%a7%e8%a1%97%e4%ba%86%e3%80%82%0a%e8%a7%86%e9%a2%91%e6%95%99%e7%a8%8b%ef%bc%9a%e9%bb%91%e9%a9%ac%e7%82%b9%e8%af%84%e9%a1%b9%e7%9b%ae%e5%ae%9e%e6%88%98%ef%bc%8c%e6%8e%8c%e6%8f%a1%e4%bc%81%e4%b8%9a%e5%ae%9e%e6%88%98%e9%a1%b9%e7%9b%ae%e7%9c%9f%e5%ae%9e%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af%ef%bc%8c%e4%b8%80%e5%a5%97%e7%b2%be%e9%80%9aredis%e7%bc%93%e5%ad%98%e6%8a%80%e6%9c%af_%e5%93%94%e5%93%a9%e5%93%94%e5%93%a9_bilibili%0a%e6%88%91%e7%9a%84%e5%ae%9e%e7%8e%b0%ef%bc%9agitee.com/wkling/Dianping%0aCSDN%e4%b8%8a%e4%bc%98%e8%b4%a8%e7%9a%84%e6%96%87%e5%ad%97%e6%95%99%e7%a8%8b%ef%bc%9a%e9%bb%91%e9%a9%ac%e7%82%b9%e8%af%84%e9%a1%b9%e7%9b%ae%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%ef%bc%8815w%e5%ad%97%e8%af%a6%e8%a7%a3%ef%bc%8c%e5%a0%aa%e7%a7%b0%e5%8f%b2%e4%b8%8a%e6%9c%80%e8%af%a6%e7%bb%86%ef%bc%8c%e6%ac%a2%e8%bf%8e%e6%94%b6%e8%97%8f%ef%bc%89-CSDN%e5%8d%9a%e5%ae%a2%0a" title="分享到「豆瓣」" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon douban-icon"><path d="M.643.92v2.412h22.714V.92H.643zm1.974 4.926v9.42h18.764v-9.42H2.617zm2.72 2.408H18.69v4.605H5.338V8.254zm1.657 7.412l-2.512.938c1.037 1.461 1.87 2.825 2.512 4.091H0v2.385h24v-2.385h-6.678c.818-1.176 1.589-2.543 2.303-4.091l-2.73-.938a29.952 29.952 0 01-2.479 5.03h-4.75c-.786-1.962-1.677-3.641-2.672-5.03Z"/></svg></a>
+                    </div>
+                
+            
+                
+                    <div class="share-item qq">
+                        
+                        <a href="https://connect.qq.com/widget/shareqq/index.html?url=https://yuyuyuyi1.github.io/2025/09/25/springbootvue%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84/&amp;title=%0aSpringBoot&#43;Vue&#43;Redis:%20%e9%bb%91%e9%a9%ac%e7%82%b9%e8%af%84%e5%ad%a6%e4%b9%a0&amp;summary=%e9%a1%b9%e7%9b%ae%e6%9d%a5%e8%87%aa%e9%bb%91%e9%a9%ac%e7%a8%8b%e5%ba%8f%e5%91%98%e7%9a%84%e9%bb%91%e9%a9%ac%e7%82%b9%e8%af%84%ef%bc%8c%e4%b8%aa%e4%ba%ba%e8%ae%a4%e4%b8%ba%e6%98%af%e5%be%88%e5%a5%bd%e7%9a%84SpringBoot&#43;Redis%e6%95%99%e7%a8%8b%e9%a1%b9%e7%9b%ae%e3%80%82%e4%b8%8d%e8%bf%87%e7%96%91%e4%bc%bc%e6%9c%89%e7%82%b9%e7%83%82%e5%a4%a7%e8%a1%97%e4%ba%86%e3%80%82%0a%e8%a7%86%e9%a2%91%e6%95%99%e7%a8%8b%ef%bc%9a%e9%bb%91%e9%a9%ac%e7%82%b9%e8%af%84%e9%a1%b9%e7%9b%ae%e5%ae%9e%e6%88%98%ef%bc%8c%e6%8e%8c%e6%8f%a1%e4%bc%81%e4%b8%9a%e5%ae%9e%e6%88%98%e9%a1%b9%e7%9b%ae%e7%9c%9f%e5%ae%9e%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af%ef%bc%8c%e4%b8%80%e5%a5%97%e7%b2%be%e9%80%9aredis%e7%bc%93%e5%ad%98%e6%8a%80%e6%9c%af_%e5%93%94%e5%93%a9%e5%93%94%e5%93%a9_bilibili%0a%e6%88%91%e7%9a%84%e5%ae%9e%e7%8e%b0%ef%bc%9agitee.com/wkling/Dianping%0aCSDN%e4%b8%8a%e4%bc%98%e8%b4%a8%e7%9a%84%e6%96%87%e5%ad%97%e6%95%99%e7%a8%8b%ef%bc%9a%e9%bb%91%e9%a9%ac%e7%82%b9%e8%af%84%e9%a1%b9%e7%9b%ae%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%ef%bc%8815w%e5%ad%97%e8%af%a6%e8%a7%a3%ef%bc%8c%e5%a0%aa%e7%a7%b0%e5%8f%b2%e4%b8%8a%e6%9c%80%e8%af%a6%e7%bb%86%ef%bc%8c%e6%ac%a2%e8%bf%8e%e6%94%b6%e8%97%8f%ef%bc%89-CSDN%e5%8d%9a%e5%ae%a2%0a&amp;pics=data:image/svg&#43;xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc&#43;&amp;site=yuyuyuyi1%27s%20Blog" title="分享到「QQ」" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon qq-icon"><path d="M433.754 420.445c-11.526 1.393-44.86-52.741-44.86-52.741 0 31.345-16.136 72.247-51.051 101.786 16.842 5.192 54.843 19.167 45.803 34.421-7.316 12.343-125.51 7.881-159.632 4.037-34.122 3.844-152.316 8.306-159.632-4.037-9.045-15.25 28.918-29.214 45.783-34.415-34.92-29.539-51.059-70.445-51.059-101.792 0 0-33.334 54.134-44.859 52.741-5.37-.65-12.424-29.644 9.347-99.704 10.261-33.024 21.995-60.478 40.144-105.779C60.683 98.063 108.982.006 224 0c113.737.006 163.156 96.133 160.264 214.963 18.118 45.223 29.912 72.85 40.144 105.778 21.768 70.06 14.716 99.053 9.346 99.704z"/></svg></a>
+                    </div>
+                
+            
+                
+                    <div class="share-item qzone">
+                        
+                        <a href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://yuyuyuyi1.github.io/2025/09/25/springbootvue%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84/&amp;title=%0aSpringBoot&#43;Vue&#43;Redis:%20%e9%bb%91%e9%a9%ac%e7%82%b9%e8%af%84%e5%ad%a6%e4%b9%a0&amp;summary=%e9%a1%b9%e7%9b%ae%e6%9d%a5%e8%87%aa%e9%bb%91%e9%a9%ac%e7%a8%8b%e5%ba%8f%e5%91%98%e7%9a%84%e9%bb%91%e9%a9%ac%e7%82%b9%e8%af%84%ef%bc%8c%e4%b8%aa%e4%ba%ba%e8%ae%a4%e4%b8%ba%e6%98%af%e5%be%88%e5%a5%bd%e7%9a%84SpringBoot&#43;Redis%e6%95%99%e7%a8%8b%e9%a1%b9%e7%9b%ae%e3%80%82%e4%b8%8d%e8%bf%87%e7%96%91%e4%bc%bc%e6%9c%89%e7%82%b9%e7%83%82%e5%a4%a7%e8%a1%97%e4%ba%86%e3%80%82%0a%e8%a7%86%e9%a2%91%e6%95%99%e7%a8%8b%ef%bc%9a%e9%bb%91%e9%a9%ac%e7%82%b9%e8%af%84%e9%a1%b9%e7%9b%ae%e5%ae%9e%e6%88%98%ef%bc%8c%e6%8e%8c%e6%8f%a1%e4%bc%81%e4%b8%9a%e5%ae%9e%e6%88%98%e9%a1%b9%e7%9b%ae%e7%9c%9f%e5%ae%9e%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af%ef%bc%8c%e4%b8%80%e5%a5%97%e7%b2%be%e9%80%9aredis%e7%bc%93%e5%ad%98%e6%8a%80%e6%9c%af_%e5%93%94%e5%93%a9%e5%93%94%e5%93%a9_bilibili%0a%e6%88%91%e7%9a%84%e5%ae%9e%e7%8e%b0%ef%bc%9agitee.com/wkling/Dianping%0aCSDN%e4%b8%8a%e4%bc%98%e8%b4%a8%e7%9a%84%e6%96%87%e5%ad%97%e6%95%99%e7%a8%8b%ef%bc%9a%e9%bb%91%e9%a9%ac%e7%82%b9%e8%af%84%e9%a1%b9%e7%9b%ae%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%ef%bc%8815w%e5%ad%97%e8%af%a6%e8%a7%a3%ef%bc%8c%e5%a0%aa%e7%a7%b0%e5%8f%b2%e4%b8%8a%e6%9c%80%e8%af%a6%e7%bb%86%ef%bc%8c%e6%ac%a2%e8%bf%8e%e6%94%b6%e8%97%8f%ef%bc%89-CSDN%e5%8d%9a%e5%ae%a2%0a&amp;pics=data:image/svg&#43;xml;base64,PCEtLUFyZ29uTG9hZGluZy0tPgo8c3ZnIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjZmZmZmZmMDAiPjxnPjwvZz4KPC9zdmc&#43;&amp;site=yuyuyuyi1%27s%20Blog" title="分享到「QQ 空间」" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon qzone-icon"><path d="M23.985 9.202c-.032-.099-.127-.223-.334-.258-.207-.036-7.351-1.406-7.351-1.406s-.105-.022-.198-.07c-.092-.047-.127-.167-.127-.167S12.447.956 12.349.77C12.25.583 12.104.532 12 .532c-.104 0-.251.051-.349.238-.098.186-3.626 6.531-3.626 6.531s-.035.12-.128.167c-.092.047-.197.07-.197.07S.556 8.908.348 8.943c-.208.036-.302.16-.333.258a.477.477 0 0 0 .125.449l5.362 5.49s.072.08.119.172c.016.104.005.21.005.21s-1.189 7.242-1.22 7.45.075.369.159.43c.083.062.233.106.421.013.189-.093 6.812-3.261 6.812-3.261s.098-.044.201-.061c.103-.017.201.061.201.061s6.623 3.168 6.812 3.261c.188.094.338.049.421-.013a.463.463 0 0 0 .159-.43c-.021-.14-.93-5.677-.93-5.677.876-.54 1.425-1.039 1.849-1.747-2.594.969-6.006 1.717-9.415 1.866-.915.041-2.41.097-3.473-.015-.678-.071-1.17-.144-1.243-.438-.053-.215.054-.46.545-.831a2640.5 2640.5 0 0 1 2.861-2.155c1.285-.968 3.559-2.47 3.559-2.731 0-.285-2.144-.781-4.037-.781-1.945 0-2.275.132-2.811.168-.488.034-.769.005-.804-.138-.06-.248.183-.389.588-.568.709-.314 1.86-.594 1.984-.626.194-.052 3.082-.805 5.618-.535 1.318.14 3.244.668 3.244 1.276 0 .342-1.721 1.494-3.225 2.597-1.149.843-2.217 1.561-2.217 1.688 0 .342 3.533 1.241 6.689 1.01l.003-.022c.048-.092.119-.172.119-.172l5.362-5.49a.477.477 0 0 0 .127-.449z"/></svg></a>
+                    </div>
+                
+            
+                
+                    <div class="share-item pocket">
+                        
+                        <a href="https://getpocket.com/edit.php?url=https://yuyuyuyi1.github.io/2025/09/25/springbootvue%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84/" title="分享到「Pocket」" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon pocket-icon"><path d="M407.6 64h-367C18.5 64 0 82.5 0 104.6v135.2C0 364.5 99.7 464 224.2 464c124 0 223.8-99.5 223.8-224.2V104.6c0-22.4-17.7-40.6-40.4-40.6zm-162 268.5c-12.4 11.8-31.4 11.1-42.4 0C89.5 223.6 88.3 227.4 88.3 209.3c0-16.9 13.8-30.7 30.7-30.7 17 0 16.1 3.8 105.2 89.3 90.6-86.9 88.6-89.3 105.5-89.3 16.9 0 30.7 13.8 30.7 30.7 0 17.8-2.9 15.7-114.8 123.2z"/></svg></a>
+                    </div>
+                
+            
+                
+                    <div class="share-item hackernews">
+                        
+                        <a href="https://news.ycombinator.com/submitlink?u=https://yuyuyuyi1.github.io/2025/09/25/springbootvue%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84/&amp;t=%0aSpringBoot&#43;Vue&#43;Redis:%20%e9%bb%91%e9%a9%ac%e7%82%b9%e8%af%84%e5%ad%a6%e4%b9%a0" title="分享到Hacker News" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon hackernews-icon"><path d="M0 32v448h448V32H0zm21.2 197.2H21c.1-.1.2-.3.3-.4 0 .1 0 .3-.1.4zm218 53.9V384h-31.4V281.3L128 128h37.3c52.5 98.3 49.2 101.2 59.3 125.6 12.3-27 5.8-24.4 60.6-125.6H320l-80.8 155.1z"/></svg></a>
+                    </div>
+                
+            
+                
+                    <div class="share-item qrcode">
+                        <div class="qrcode-container" title="通过「二维码」"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon qrcode-icon"><path d="M0 224h192V32H0v192zM64 96h64v64H64V96zm192-64v192h192V32H256zm128 128h-64V96h64v64zM0 480h192V288H0v192zm64-128h64v64H64v-64zm352-64h32v128h-96v-32h-32v96h-64V288h96v32h64v-32zm0 160h32v32h-32v-32zm-64 0h32v32h-32v-32z"/></svg><div id="qrcode-img"></div>
+                        </div>
+                        <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+
+<script>
+    const typeNumber = 0;
+    const errorCorrectionLevel = 'L';
+    const qr = qrcode(typeNumber, errorCorrectionLevel);
+    qr.addData('https:\/\/yuyuyuyi1.github.io\/2025\/09\/25\/springbootvue%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84\/');
+    qr.make();
+    document.getElementById('qrcode-img').innerHTML = qr.createImgTag();
+</script>
+
+                    </div>
+                
+            
+                
+                    <div class="share-item email">
+                        
+                        <a href="mailto:?subject=%0aSpringBoot&#43;Vue&#43;Redis:%20%e9%bb%91%e9%a9%ac%e7%82%b9%e8%af%84%e5%ad%a6%e4%b9%a0&amp;body=%e9%a1%b9%e7%9b%ae%e6%9d%a5%e8%87%aa%e9%bb%91%e9%a9%ac%e7%a8%8b%e5%ba%8f%e5%91%98%e7%9a%84%e9%bb%91%e9%a9%ac%e7%82%b9%e8%af%84%ef%bc%8c%e4%b8%aa%e4%ba%ba%e8%ae%a4%e4%b8%ba%e6%98%af%e5%be%88%e5%a5%bd%e7%9a%84SpringBoot&#43;Redis%e6%95%99%e7%a8%8b%e9%a1%b9%e7%9b%ae%e3%80%82%e4%b8%8d%e8%bf%87%e7%96%91%e4%bc%bc%e6%9c%89%e7%82%b9%e7%83%82%e5%a4%a7%e8%a1%97%e4%ba%86%e3%80%82%0a%e8%a7%86%e9%a2%91%e6%95%99%e7%a8%8b%ef%bc%9a%e9%bb%91%e9%a9%ac%e7%82%b9%e8%af%84%e9%a1%b9%e7%9b%ae%e5%ae%9e%e6%88%98%ef%bc%8c%e6%8e%8c%e6%8f%a1%e4%bc%81%e4%b8%9a%e5%ae%9e%e6%88%98%e9%a1%b9%e7%9b%ae%e7%9c%9f%e5%ae%9e%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af%ef%bc%8c%e4%b8%80%e5%a5%97%e7%b2%be%e9%80%9aredis%e7%bc%93%e5%ad%98%e6%8a%80%e6%9c%af_%e5%93%94%e5%93%a9%e5%93%94%e5%93%a9_bilibili%0a%e6%88%91%e7%9a%84%e5%ae%9e%e7%8e%b0%ef%bc%9agitee.com/wkling/Dianping%0aCSDN%e4%b8%8a%e4%bc%98%e8%b4%a8%e7%9a%84%e6%96%87%e5%ad%97%e6%95%99%e7%a8%8b%ef%bc%9a%e9%bb%91%e9%a9%ac%e7%82%b9%e8%af%84%e9%a1%b9%e7%9b%ae%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%ef%bc%8815w%e5%ad%97%e8%af%a6%e8%a7%a3%ef%bc%8c%e5%a0%aa%e7%a7%b0%e5%8f%b2%e4%b8%8a%e6%9c%80%e8%af%a6%e7%bb%86%ef%bc%8c%e6%ac%a2%e8%bf%8e%e6%94%b6%e8%97%8f%ef%bc%89-CSDN%e5%8d%9a%e5%ae%a2%0a%0Ahttps://yuyuyuyi1.github.io/2025/09/25/springbootvue%E9%BB%91%E9%A9%AC%E7%82%B9%E8%AF%84/" title="通过「电子邮件」" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon email-icon"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></svg></a>
+                    </div>
+                
+            
+        </div>
+
+    </div>
+
+
+
+
+        
+    
+    
+        <div class="related-posts">
+            <h2 class="related-title">相关文章：<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon related-icon"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z"/></svg></h2>
+            <ul class="related-list">
+                
+                    <li class="related-item">
+                        <a href="/2025/05/07/aboutme/" class="related-link">
+基于LangChain4j框架的简单AI对话平台</a>
+                    </li>
+                
+            </ul>
+        </div>
+    
+
+
+
+        
+    
+        <div class="post-tags">
+            
+                
+                
+                
+                
+                    
+                    <a href="/tags/%E9%A1%B9%E7%9B%AE/" rel="tag" class="post-tags-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon tag-icon"><path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"/></svg>项目</a>
+                
+            
+        </div>
+    
+
+
+
+        
+
+
+        
+
+
+        
+    
+        
+        
+    
+    
+    
+    
+        <ul class="post-nav">
+            
+                <li class="post-nav-prev">
+                    <a href="/2025/10/09/%E5%8A%9B%E6%89%A3hot100-%E9%93%BE%E8%A1%A8/" rel="prev">&lt; 
+力扣hot100—链表14题</a>
+                </li>
+            
+            
+                <li class="post-nav-next">
+                    <a href="/2025/09/15/%E5%8A%9B%E6%89%A3hot100-%E5%AD%90%E4%B8%B2-3%E9%A2%98/" rel="next">
+力扣hot100—子串 3题 &gt;</a>
+                </li>
+            
+        </ul>
+    
+
+
+
+        
+
+
+    </div>
+</main>
+
+
+            
+    <div id="back-to-top" class="back-to-top">
+        <a href="#top" aria-label="回到顶部">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon arrow-up"><path d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6 0-33.9L207 39c9.4-9.4 24.6-9.4 33.9 0l194.3 194.3c9.4 9.4 9.4 24.6 0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"/></svg>
+        </a>
+    </div>
+
+
+            
+    <footer id="footer" class="footer">
+        <div class="footer-inner">
+            <div class="site-info">©&nbsp;2025–2025&nbsp;<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon footer-icon"><path d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"/></svg>&nbsp;wangkunlin</div><div class="powered-by">
+Powered by <a href="https://github.com/gohugoio/hugo" target="_blank" rel="noopener">Hugo</a> | Theme is <a href="https://github.com/reuixiy/hugo-theme-meme" target="_blank" rel="noopener">MemE</a></div><div class="site-copyright">
+<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a></div>
+
+            
+    
+        <ul class="socials"><li class="socials-item">
+                    <a href="/rss.xml" target="_blank" rel="external noopener" title="RSS"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon social-icon"><path d="M19.199 24C19.199 13.467 10.533 4.8 0 4.8V0c13.165 0 24 10.835 24 24h-4.801zM3.291 17.415c1.814 0 3.293 1.479 3.293 3.295 0 1.813-1.485 3.29-3.301 3.29C1.47 24 0 22.526 0 20.71s1.475-3.294 3.291-3.295zM15.909 24h-4.665c0-6.169-5.075-11.245-11.244-11.245V8.09c8.727 0 15.909 7.184 15.909 15.91z"/></svg></a>
+                </li><li class="socials-item">
+                    <a href="mailto:reuixiy@gmail.com" target="_blank" rel="external noopener" title="Email"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon social-icon"><path d="M464 64H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm0 48v40.805c-22.422 18.259-58.168 46.651-134.587 106.49-16.841 13.247-50.201 45.072-73.413 44.701-23.208.375-56.579-31.459-73.413-44.701C106.18 199.465 70.425 171.067 48 152.805V112h416zM48 400V214.398c22.914 18.251 55.409 43.862 104.938 82.646 21.857 17.205 60.134 55.186 103.062 54.955 42.717.231 80.509-37.199 103.053-54.947 49.528-38.783 82.032-64.401 104.947-82.653V400H48z"/></svg></a>
+                </li><li class="socials-item">
+                    <a href="https://github.com/reuixiy" target="_blank" rel="external noopener" title="GitHub"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon social-icon"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+                </li><li class="socials-item">
+                    <a href="https://x.com/yixiuer" target="_blank" rel="external noopener" title="𝕏"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon social-icon"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg></a>
+                </li><li class="socials-item">
+                    <a href="https://t.me/yixiuer" target="_blank" rel="external noopener" title="Telegram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" class="icon social-icon"><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm121.8 169.9l-40.7 191.8c-3 13.6-11.1 16.9-22.4 10.5l-62-45.7-29.9 28.8c-3.3 3.3-6.1 6.1-12.5 6.1l4.4-63.1 114.9-103.8c5-4.4-1.1-6.9-7.7-2.5l-142 89.4-61.2-19.1c-13.3-4.2-13.6-13.3 2.8-19.7l239.1-92.2c11.1-4 20.8 2.7 17.2 19.5z"/></svg></a>
+                </li></ul>
+    
+
+
+
+            
+        </div>
+    </footer>
+
+
+        </div>
+        
+
+        
+
+
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/medium-zoom@latest/dist/medium-zoom.min.js"></script>
+
+<script>
+    let imgNodes = document.querySelectorAll('div.post-body img');
+    imgNodes = Array.from(imgNodes).filter(node => node.parentNode.tagName !== "A");
+
+    mediumZoom(imgNodes, {
+        background: 'hsla(var(--color-bg-h), var(--color-bg-s), var(--color-bg-l), 0.95)'
+    })
+</script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/instant.page@5.1.0/instantpage.min.js" type="module" defer></script>
+
+
+
+
+
+
+    </body>
+</html>
