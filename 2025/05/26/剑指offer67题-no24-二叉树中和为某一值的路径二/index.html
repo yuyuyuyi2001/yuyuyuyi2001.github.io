@@ -3,7 +3,7 @@
     <head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
     <meta charset="UTF-8" />
 
-    <meta name="generator" content="Hugo 0.153.2"><meta name="theme-color" content="#fff" />
+    <meta name="generator" content="Hugo 0.153.1"><meta name="theme-color" content="#fff" />
     <meta name="color-scheme" content="light dark">
 
     
@@ -59,7 +59,7 @@
         "@context": "https://schema.org",
         "@type": "BlogPosting",
         "datePublished": "2025-05-26T03:20:32+00:00",
-        "dateModified": "2025-12-23T13:27:20+00:00",
+        "dateModified": "2025-12-23T13:32:05+00:00",
         "url": "https://yuyuyuyi1.github.io/2025/05/26/%E5%89%91%E6%8C%87offer67%E9%A2%98-no24-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E5%92%8C%E4%B8%BA%E6%9F%90%E4%B8%80%E5%80%BC%E7%9A%84%E8%B7%AF%E5%BE%84%E4%BA%8C/",
         "headline": "\n剑指offer67题-No24.二叉树中和为某一值的路径(二)",
         "description": "递归，用一个vector存储中间的path路径。\n#include \u003cvector\u003e class Solution { public: // 一个存放最后结果，一个存放临时结果 vector\u003cvector\u003cint\u003e\u003e res; vector\u003cint\u003e path; void dfs(TreeNode* root, int target, int temp){ if(root == nullptr) return; path.emplace_back(root-\u003eval); if(root-\u003eleft == nullptr \u0026\u0026 root-\u003eright == nullptr \u0026\u0026 root-\u003eval + temp == target){ res.emplace_back(path); } dfs(root-\u003eleft, target, temp + root-\u003eval); dfs(root-\u003eright, target, temp + root-\u003eval); path.pop_back(); } vector\u003cvector\u003cint\u003e \u003e FindPath(TreeNode* root, int target) { if(root == nullptr) return {}; dfs(root, target, 0); return res; } }; 时间复杂度：O(n^2)，其中n是树的节点数。 空间复杂度：O(n)，递归栈的深度不会超过节点数量，但最大可能就是节点数量。 ",
@@ -112,7 +112,7 @@
 <meta property="og:locale" content="zh-cn" /><meta property="og:image" content="https://yuyuyuyi1.github.io/icons/apple-touch-icon.png" />
     <meta property="og:type" content="article" />
     <meta property="article:published_time" content="2025-05-26T03:20:32&#43;00:00" />
-    <meta property="article:modified_time" content="2025-12-23T13:27:20&#43;00:00" />
+    <meta property="article:modified_time" content="2025-12-23T13:32:05&#43;00:00" />
     
     <meta property="article:section" content="post" />
 <meta name="fediverse:creator" content="@yixiuer@mastodon.social" />
@@ -224,7 +224,7 @@
     
     
         
-        <time datetime="2025-12-23T13:27:20&#43;00:00" class="post-meta-item modified dt-updated"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon post-meta-icon"><path d="M400 64h-48V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H160V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm-6 400H54a6 6 0 0 1-6-6V160h352v298a6 6 0 0 1-6 6zm-52.849-200.65L198.842 404.519c-4.705 4.667-12.303 4.637-16.971-.068l-75.091-75.699c-4.667-4.705-4.637-12.303.068-16.971l22.719-22.536c4.705-4.667 12.303-4.637 16.97.069l44.104 44.461 111.072-110.181c4.705-4.667 12.303-4.637 16.971.068l22.536 22.718c4.667 4.705 4.636 12.303-.069 16.97z"/></svg>&nbsp;2025.12.23</time>
+        <time datetime="2025-12-23T13:32:05&#43;00:00" class="post-meta-item modified dt-updated"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon post-meta-icon"><path d="M400 64h-48V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H160V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm-6 400H54a6 6 0 0 1-6-6V160h352v298a6 6 0 0 1-6 6zm-52.849-200.65L198.842 404.519c-4.705 4.667-12.303 4.637-16.971-.068l-75.091-75.699c-4.667-4.705-4.637-12.303.068-16.971l22.719-22.536c4.705-4.667 12.303-4.637 16.97.069l44.104 44.461 111.072-110.181c4.705-4.667 12.303-4.637 16.971.068l22.536 22.718c4.667 4.705 4.636 12.303-.069 16.97z"/></svg>&nbsp;2025.12.23</time>
     
     
     
@@ -311,7 +311,7 @@ public:
 
         
     <div class="updated-badge-container">
-        <span title="Updated @ 2025-12-23 13:27:20 UTC" style="cursor:help">
+        <span title="Updated @ 2025-12-23 13:32:05 UTC" style="cursor:help">
 
 <svg xmlns="http://www.w3.org/2000/svg" width="130" height="20" class="updated-badge"><linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="a"><rect width="130" height="20" rx="3" fill="#fff"/></clipPath><g clip-path="url(#a)"><path class="updated-badge-left" d="M0 0h55v20H0z"/><path class="updated-badge-right" d="M55 0h75v20H55z"/><path fill="url(#b)" d="M0 0h130v20H0z"/></g><g fill="#fff" text-anchor="middle" font-size="110"><text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text><text x="285" y="140" textLength="450" transform="scale(.1)">updated</text><text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">2025-12-23</text><text x="915" y="140" textLength="650" transform="scale(.1)">2025-12-23</text></g></svg>
         </span></div>

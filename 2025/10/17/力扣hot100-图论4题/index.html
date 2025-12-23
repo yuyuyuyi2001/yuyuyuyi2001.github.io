@@ -3,7 +3,7 @@
     <head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
     <meta charset="UTF-8" />
 
-    <meta name="generator" content="Hugo 0.153.2"><meta name="theme-color" content="#fff" />
+    <meta name="generator" content="Hugo 0.153.1"><meta name="theme-color" content="#fff" />
     <meta name="color-scheme" content="light dark">
 
     
@@ -60,7 +60,7 @@ void dfs(int[][] grid, int r, int c) { // 判断 base case if (!inArea(grid, r, 
         "@context": "https://schema.org",
         "@type": "BlogPosting",
         "datePublished": "2025-10-17T07:09:41+00:00",
-        "dateModified": "2025-12-23T13:27:20+00:00",
+        "dateModified": "2025-12-23T13:32:05+00:00",
         "url": "https://yuyuyuyi1.github.io/2025/10/17/%E5%8A%9B%E6%89%A3hot100-%E5%9B%BE%E8%AE%BA4%E9%A2%98/",
         "headline": "\n力扣hot100—图论4题",
         "description": "网格DFS通用板子，类似二叉树的DFS：\nvoid dfs(int[][] grid, int r, int c) { // 判断 base case if (!inArea(grid, r, c)) { return; } grid[r][c] = 2; // 将格子标记为「已遍历过」 // 访问上、下、左、右四个相邻结点 dfs(grid, r - 1, c); dfs(grid, r + 1, c); dfs(grid, r, c - 1); dfs(grid, r, c + 1); } // 判断坐标 (r, c) 是否在网格中 boolean inArea(int[][] grid, int r, int c) { return 0 \u003c= r \u0026\u0026 r \u003c grid.length \u0026\u0026 0 \u003c= c \u0026\u0026 c \u003c grid[0].length; } 岛屿数量 循环访问每个点（i，j），递归DFS用以将某片岛屿全部表记为访问过。\n",
@@ -114,7 +114,7 @@ void dfs(int[][] grid, int r, int c) { // 判断 base case if (!inArea(grid, r, 
 <meta property="og:locale" content="zh-cn" /><meta property="og:image" content="https://yuyuyuyi1.github.io/icons/apple-touch-icon.png" />
     <meta property="og:type" content="article" />
     <meta property="article:published_time" content="2025-10-17T07:09:41&#43;00:00" />
-    <meta property="article:modified_time" content="2025-12-23T13:27:20&#43;00:00" />
+    <meta property="article:modified_time" content="2025-12-23T13:32:05&#43;00:00" />
     
     <meta property="article:section" content="post" />
 <meta name="fediverse:creator" content="@yixiuer@mastodon.social" />
@@ -226,7 +226,7 @@ void dfs(int[][] grid, int r, int c) { // 判断 base case if (!inArea(grid, r, 
     
     
         
-        <time datetime="2025-12-23T13:27:20&#43;00:00" class="post-meta-item modified dt-updated"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon post-meta-icon"><path d="M400 64h-48V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H160V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm-6 400H54a6 6 0 0 1-6-6V160h352v298a6 6 0 0 1-6 6zm-52.849-200.65L198.842 404.519c-4.705 4.667-12.303 4.637-16.971-.068l-75.091-75.699c-4.667-4.705-4.637-12.303.068-16.971l22.719-22.536c4.705-4.667 12.303-4.637 16.97.069l44.104 44.461 111.072-110.181c4.705-4.667 12.303-4.637 16.971.068l22.536 22.718c4.667 4.705 4.636 12.303-.069 16.97z"/></svg>&nbsp;2025.12.23</time>
+        <time datetime="2025-12-23T13:32:05&#43;00:00" class="post-meta-item modified dt-updated"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon post-meta-icon"><path d="M400 64h-48V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H160V12c0-6.627-5.373-12-12-12h-40c-6.627 0-12 5.373-12 12v52H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm-6 400H54a6 6 0 0 1-6-6V160h352v298a6 6 0 0 1-6 6zm-52.849-200.65L198.842 404.519c-4.705 4.667-12.303 4.637-16.971-.068l-75.091-75.699c-4.667-4.705-4.637-12.303.068-16.971l22.719-22.536c4.705-4.667 12.303-4.637 16.97.069l44.104 44.461 111.072-110.181c4.705-4.667 12.303-4.637 16.971.068l22.536 22.718c4.667 4.705 4.636 12.303-.069 16.97z"/></svg>&nbsp;2025.12.23</time>
     
     
     
@@ -512,7 +512,7 @@ boolean inArea(int[][] grid, int r, int c) {
 
         
     <div class="updated-badge-container">
-        <span title="Updated @ 2025-12-23 13:27:20 UTC" style="cursor:help">
+        <span title="Updated @ 2025-12-23 13:32:05 UTC" style="cursor:help">
 
 <svg xmlns="http://www.w3.org/2000/svg" width="130" height="20" class="updated-badge"><linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="a"><rect width="130" height="20" rx="3" fill="#fff"/></clipPath><g clip-path="url(#a)"><path class="updated-badge-left" d="M0 0h55v20H0z"/><path class="updated-badge-right" d="M55 0h75v20H55z"/><path fill="url(#b)" d="M0 0h130v20H0z"/></g><g fill="#fff" text-anchor="middle" font-size="110"><text x="285" y="150" fill="#010101" fill-opacity=".3" textLength="450" transform="scale(.1)">updated</text><text x="285" y="140" textLength="450" transform="scale(.1)">updated</text><text x="915" y="150" fill="#010101" fill-opacity=".3" textLength="650" transform="scale(.1)">2025-12-23</text><text x="915" y="140" textLength="650" transform="scale(.1)">2025-12-23</text></g></svg>
         </span></div>
